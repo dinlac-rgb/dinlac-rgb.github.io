@@ -1,343 +1,673 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-IN" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BizPulse | Home</title>
-<meta name="description" content="BizPulse by Srijee Creations: GST-ready accounting software for Indian businesses, from mobile billing to full CA practice suites.">
-<meta name="theme-color" content="#08172f">
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BizPulse — Keyboard-Driven Accounting & GST Software for India</title>
+<meta name="description" content="BizPulse by Srijee Creations: keyboard-driven accounting, GST compliance and inventory for Indian businesses and Chartered Accountants. Download for Windows.">
+<meta name="theme-color" content="#020617">
+<link rel="canonical" href="https://mybizpulse.in/">
+<meta property="og:title" content="BizPulse — Economy. Accuracy. Efficiency.">
+<meta property="og:description" content="Honest pricing. Accurate numbers. Total peace of mind.">
+<meta property="og:url" content="https://mybizpulse.in/">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        },
+        colors: { pulse: '#38bdf8' }
+      }
+    }
+  };
+</script>
+
 <style>
-  :root {
-    --bg: #08172f;
-    --bg-2: #0c2142;
-    --surface: #10284d;
-    --surface-2: #143059;
-    --border: #1f3d6b;
-    --border-strong: #2c5290;
-    --text: #e9eef7;
-    --muted: #9fb0cc;
-    --white: #ffffff;
-    --neon: #38c9ff;
-    --neon-deep: #1798d6;
-    --gold: #d8b25a;
-    --gold-soft: #e9cf8e;
-    --gold-deep: #b98a2c;
-    --success: #43d29a;
-    --radius: 12px;
-    --radius-sm: 8px;
-    --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-    --font-ui: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-    --text-size: 15px;
+  /* ---------- Reset & base ---------- */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+  img,svg{display:block;max-width:100%}
+  button,input,select,textarea{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid #38bdf8;outline-offset:3px}
+
+  /* ---------- Engineering grid backdrop ---------- */
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(148,163,184,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(148,163,184,.07) 1px,transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 30%,#000 35%,transparent 85%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 30%,#000 35%,transparent 85%);
   }
 
-  *, *::before, *::after { box-sizing: border-box; }
+  /* ---------- ECG monitor animation ---------- */
+  .ecg-trace{
+    stroke-dasharray:160 1100;
+    animation:ecg 2.8s linear infinite;
+  }
+  @keyframes ecg{from{stroke-dashoffset:1260}to{stroke-dashoffset:0}}
+  .ecg-dot{animation:blink 1.4s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 
-  html { -webkit-text-size-adjust: 100%; }
+  /* ---------- Mobile tray ---------- */
+  #mobileTray{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  #mobileTray.open{grid-template-rows:1fr}
+  #mobileTray > div{overflow:hidden}
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: var(--font-ui);
-    font-size: var(--text-size);
-    line-height: 1.55;
-    color: var(--text);
-    background: var(--bg);
-    -webkit-font-smoothing: antialiased;
-  }
+  /* ---------- Modal ---------- */
+  #payModal{transition:opacity .2s ease}
+  #payModal.hidden-modal{opacity:0;pointer-events:none;visibility:hidden}
+  #payModal .panel{transition:transform .25s ease}
+  #payModal.hidden-modal .panel{transform:translateY(16px) scale(.98)}
 
-  a { color: var(--neon); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .ecg-trace{stroke-dasharray:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
 
-  h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.25; }
-  p { margin: 0; }
+<body class="bg-slate-950 text-slate-200 font-sans leading-relaxed">
 
-  button { font: inherit; color: inherit; }
+<!-- ================= AUTHORSHIP BADGE ================= -->
+<div class="border-b border-slate-800/80 bg-slate-950">
+  <div class="mx-auto max-w-7xl px-4 py-2 flex justify-center">
+    <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-4 py-1 text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.25em]">
+      A Creation of Srijee Creations
+    </span>
+  </div>
+</div>
 
-  :focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+<!-- ================= HEADER / NAV ================= -->
+<header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur-md">
+  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4" aria-label="Main">
+    <a href="#top" class="text-2xl font-black tracking-tight" aria-label="BizPulse home">
+      <span class="text-white">Biz</span><span class="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">Pulse</span>
+    </a>
 
-  /* ---------- Brand ---------- */
-  .logo {
-    margin: 0;
-    font-family: var(--font-ui);
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 1.1;
-    color: var(--white);
-  }
-  .tagline {
-    margin: 4px 0 0;
-    padding: 0;
-    font-family: "Playball", cursive;
-    font-size: calc(var(--text-size) - 2pt);
-    font-weight: 300;
-    font-style: normal;
-    text-transform: none;
-    letter-spacing: normal;
-    line-height: 1.35;
-    color: var(--gold);
-    background: none;
-    border: 0;
-  }
+    <ul class="hidden md:flex items-center gap-1 text-sm font-medium">
+      <li><a href="#pricing"  class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Editions &amp; Pricing</a></li>
+      <li><a href="#referral" class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Referral Rewards</a></li>
+      <li><a href="#download" class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Download</a></li>
+      <li><a href="#contact"  class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Contact Us</a></li>
+    </ul>
 
-  /* ---------- Splash Loading Overlay ---------- */
-  .splash {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: grid;
-    place-items: center;
-    padding: 16px;
-    background: var(--bg);
-    animation: splash-out 450ms ease 2s forwards;
-  }
-  .splash-box {
-    width: min(400px, 100%);
-    padding: 34px 32px 28px;
-    text-align: center;
-    background: var(--bg-2);
-    border: 1px solid var(--border-strong);
-    border-radius: 0;
-    box-shadow: var(--shadow);
-  }
-  .splash-progress {
-    margin-top: 24px;
-    height: 4px;
-    background: #17325c;
-    overflow: hidden;
-  }
-  .splash-progress span {
-    display: block;
-    height: 100%;
-    background: var(--neon);
-    transform: scaleX(0);
-    transform-origin: left center;
-    animation: splash-fill 2s linear forwards;
-  }
-  @keyframes splash-fill { to { transform: scaleX(1); } }
-  @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+    <div class="flex items-center gap-2">
+      <a href="#download" class="hidden sm:inline-flex items-center gap-2 rounded-lg border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-4 py-2 text-sm font-bold transition hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)]">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3V5.5Zm0 13 7.5 1.1v-7H3v5.9Zm8.4 1.2L21 21v-8.4h-9.6v7.1Zm0-15.4v7.2H21V3l-9.6 1.3Z"/></svg>
+        Download for Windows
+      </a>
+      <button id="menuBtn" type="button" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-300 transition hover:border-sky-400 hover:text-white"
+              aria-controls="mobileTray" aria-expanded="false" aria-label="Open menu">
+        <svg id="iconOpen" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="iconClose" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </nav>
 
-  /* ---------- Site Header ---------- */
-  .site-header {
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--border);
-  }
-  .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 18px 16px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .brand a { color: inherit; text-decoration: none; }
-  .brand { display: inline-flex; flex-direction: column; align-items: flex-start; }
-  .brand-line {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 2px;
-    margin-top: 8px;
-    border-radius: 2px;
-    background: rgba(56, 201, 255, 0.18);
-    overflow: hidden;
-  }
-  .brand-line::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    border-radius: 2px;
-    background: linear-gradient(90deg, transparent, var(--neon), var(--gold), transparent);
-    animation: brand-sweep 3.2s ease-in-out infinite;
-  }
-  @keyframes brand-sweep {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(250%); }
-  }
-  .support-badge {
-    padding: 5px 12px;
-    font-size: 12.5px;
-    color: var(--muted);
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    white-space: nowrap;
-  }
+  <!-- Mobile tray -->
+  <div id="mobileTray" class="md:hidden">
+    <div>
+      <ul class="flex flex-col gap-1 border-t border-slate-800 px-4 py-3 text-base font-medium">
+        <li><a href="#pricing"  class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Editions &amp; Pricing</a></li>
+        <li><a href="#referral" class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Referral Rewards</a></li>
+        <li><a href="#download" class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Download</a></li>
+        <li><a href="#contact"  class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Contact Us</a></li>
+        <li class="pt-2"><a href="#download" class="mobile-link block rounded-lg border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-3 text-center font-bold hover:bg-white">Download for Windows</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
 
-  .tabbar {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .tabbar::-webkit-scrollbar { display: none; }
-  .tab {
-    flex: 0 0 auto;
-    padding: 12px 14px 11px;
-    background: none;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    color: var(--muted);
-    font-size: 14px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color 150ms, border-color 150ms;
-  }
-  .tab:hover { color: var(--text); }
-  .tab[aria-selected="true"] { color: var(--white); border-bottom-color: var(--neon); }
+<main id="top">
 
-  /* ---------- Page Engine Structure ---------- */
-  .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 36px 16px 64px;
-  }
-  .page[hidden] { display: none; }
-  .page.is-entering { animation: page-in 220ms ease-out; }
-  @keyframes page-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: none; }
-  }
+<!-- ================= HERO ================= -->
+<section class="relative overflow-hidden border-b border-slate-800">
+  <div class="pointer-events-none absolute inset-0 grid-bg" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[900px] max-w-full -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" aria-hidden="true"></div>
 
-  .page-head { margin-bottom: 28px; max-width: 760px; }
-  .eyebrow {
-    margin-bottom: 8px;
-    font-size: 12px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .page-head h2 { font-size: calc(26px - 2pt); margin-bottom: 10px; }
-  .page-head p { color: var(--muted); }
+  <div class="relative mx-auto max-w-5xl px-4 pb-20 pt-16 text-center sm:pt-24">
+    <!-- Wordmark + ECG -->
+    <div class="mx-auto inline-block rounded-2xl border border-sky-400/25 bg-slate-900/40 px-6 pb-4 pt-6 shadow-[0_30px_80px_-30px_rgba(56,189,248,.45)] sm:px-12 sm:pt-8">
+      <h1 class="bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-6xl font-black tracking-tight text-transparent sm:text-8xl">
+        BizPulse
+      </h1>
+      <svg class="mt-2 w-full" viewBox="0 0 520 70" fill="none" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="ecgGlow" x="-10%" y="-50%" width="120%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="ecgFade" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#38bdf8" stop-opacity="0"/>
+            <stop offset=".15" stop-color="#38bdf8" stop-opacity=".35"/>
+            <stop offset=".85" stop-color="#38bdf8" stop-opacity=".35"/>
+            <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- static baseline -->
+        <path d="M4 44 C 70 50, 140 48, 200 42 L 232 42 L 244 18 L 258 62 L 270 6 L 284 56 L 294 42 L 330 42 C 390 38, 450 30, 516 22"
+              stroke="url(#ecgFade)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- live trace -->
+        <path class="ecg-trace" d="M4 44 C 70 50, 140 48, 200 42 L 232 42 L 244 18 L 258 62 L 270 6 L 284 56 L 294 42 L 330 42 C 390 38, 450 30, 516 22"
+              stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#ecgGlow)"/>
+        <circle class="ecg-dot" cx="516" cy="22" r="4.5" fill="#e0f2fe" filter="url(#ecgGlow)"/>
+      </svg>
+    </div>
 
-  .section-title {
-    margin: 36px 0 14px;
-    padding-bottom: 8px;
-    font-size: 17px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .section-title span { font-size: 12.5px; font-weight: 400; color: var(--muted); }
+    <div class="text-center max-w-4xl mx-auto px-4 mt-12">
+      <!-- Main Tagline -->
+      <h2 class="whitespace-nowrap text-[3.4vw] sm:text-2xl md:text-3xl font-bold tracking-wide sm:tracking-widest text-sky-400 uppercase mb-6">
+        &bull; Economical &bull; Accurate &bull; Efficient
+      </h2>
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 22px;
-  }
-  .card h3 { font-size: 17px; margin-bottom: 8px; }
-  .card p { color: var(--muted); font-size: 14px; }
-  .card p + p { margin-top: 8px; }
+      <!-- Sub-Tagline with explicit line break -->
+      <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+        Honest pricing. Accurate numbers. Total peace of mind.<br class="hidden md:inline">
+        Keyboard-driven accounting, GST compliance, and inventory built for the muscle memory of accountants and Chartered Accountants.
+      </p>
+    </div>
 
-  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    <!-- CTAs -->
+    <div id="download" class="mt-10 flex scroll-mt-28 flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="https://mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe" download
+         class="inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100"
+         aria-label="Download BizPulse for Windows (.exe, 94 MB)">Download</a>
+      <a href="#pricing" class="inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100">Compare Editions</a>
+    </div>
+    <p class="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-500">
+      <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Stable release v1.0.0</span>
+      <span class="font-mono text-slate-400">BizPulse_Setup_v1.0.0.exe</span>
+      <span>94 MB</span>
+      <span>Windows 10 / 11 (64-bit)</span>
+    </p>
+  </div>
+</section>
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: filter 150ms, border-color 150ms, background 150ms;
-  }
-  .btn:hover { text-decoration: none; }
-  .btn-primary { background: linear-gradient(180deg, var(--neon), var(--neon-deep)); color: #04121c; }
-  .btn-primary:hover { filter: brightness(1.08); }
-  .btn-outline { background: transparent; border-color: var(--border-strong); color: var(--text); }
-  .btn-outline:hover { border-color: var(--neon); }
-  .btn-gold { background: linear-gradient(180deg, var(--gold-soft), var(--gold-deep)); color: #2a1c03; }
-  .btn-gold:hover { filter: brightness(1.06); }
-  .btn.is-disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+<!-- ================= EDITIONS & PRICING ================= -->
+<section id="pricing" class="scroll-mt-20 border-b border-slate-800 py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-xs font-bold uppercase tracking-[0.25em] text-sky-400">Editions &amp; Pricing</p>
+      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Pick the edition that fits your desk.</h2>
+      <p class="mt-3 text-slate-400">Every edition shares one ledger, so you upgrade without migrating a single voucher. Prices include 18% GST.</p>
+    </div>
 
-  /* ---------- Home Tab Content ---------- */
-  .hero {
-    padding: 30px;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--surface-2), var(--bg-2));
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-  .hero h2 { font-size: calc(28px - 2pt); margin-bottom: 12px; max-width: 720px; }
-  .hero p { color: var(--muted); max-width: 720px; }
+    <!-- Desktop comparison table -->
+    <div class="mt-12 hidden overflow-x-auto rounded-2xl border border-slate-800 xl:block">
+      <table class="w-full table-fixed border-collapse text-sm" id="cmpTable"></table>
+    </div>
 
-  /* ---------- Interactive Feature Showcase ---------- */
-  .animation-showcase {
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-top: 24px;
-  }
-  .version-selector-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 14px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .version-selector-row::-webkit-scrollbar { display: none; }
-  .ver-btn {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-strong);
-    color: var(--muted);
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 150ms;
-  }
-  .ver-btn:hover { color: var(--text); border-color: var(--muted); }
-  .ver-btn.active {
-    background: rgba(56, 201, 255, 0.12);
-    border-color: var(--neon);
-    color: var(--neon);
-  }
-  .animation-display-box {
-    background: #051024;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  
-  .voice-wave { display: flex; align-items: center; gap: 4px; }
-  .voice-bar {
-    width: 4px; height: 16px; background: var(--neon); border-radius: 2px;
-    animation: wave-pulse 0.6s ease-in-out infinite alternate;
-  }
-  .voice-bar:nth-child(2) { animation-delay: 0.15s; height: 36px; }
-  .voice-bar:nth-child(3) { animation-delay: 0.3s; height: 22px; }
-  .voice-bar:nth-child(4) { animation-delay: 0.45s; height: 42px; }
-  @keyframes wave-pulse { from { transform: scaleY(0.4); } to { transform: scaleY(1.2); } }
+    <!-- Mobile / tablet cards -->
+    <div class="mt-12 space-y-12 xl:hidden" id="cmpCards"></div>
+  </div>
+</section>
 
-  .ticker-stream {
-    text-align: center; animation: ticker-scroll 2.5s linear infinite;
-    font-family: monospace; color: var(--success); font-size: 13px; line-height: 1.6;
+<!-- ================= REFERRAL ================= -->
+<section id="referral" class="relative scroll-mt-20 overflow-hidden border-b border-slate-800 py-20">
+  <div class="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-sky-500/15 blur-3xl" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-6xl px-4">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-xs font-bold uppercase tracking-[0.25em] text-indigo-300">Partner &amp; Referral Program</p>
+      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Introduce a colleague. Earn real cash.</h2>
+      <p class="mt-3 text-slate-400">Refer fellow business owners, accountants and CAs. Rewards apply across every BizPulse edition.</p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <article class="relative rounded-2xl border border-indigo-400/30 bg-gradient-to-br from-indigo-500/10 via-slate-900 to-slate-900 p-8 shadow-[0_0_60px_-20px_rgba(99,102,241,.6)] transition hover:border-indigo-300/60">
+        <span class="inline-block rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest">Your first referral</span>
+        <p class="mt-5 text-6xl font-black tracking-tight text-white">15<span class="text-indigo-300">%</span></p>
+        <p class="mt-1 text-lg font-semibold text-white">Cashback, credited automatically</p>
+        <p class="mt-3 text-slate-400">Introduce your very first referral within 30 days of your registration and we credit 15% cashback to you automatically.</p>
+      </article>
+
+      <article class="relative rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-500/10 via-slate-900 to-slate-900 p-8 shadow-[0_0_60px_-20px_rgba(56,189,248,.55)] transition hover:border-sky-300/60">
+        <span class="inline-block rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest">Every referral after</span>
+        <p class="mt-5 text-6xl font-black tracking-tight text-white">10<span class="text-sky-300">%</span></p>
+        <p class="mt-1 text-lg font-semibold text-white">Cash reward, every time</p>
+        <p class="mt-3 text-slate-400">Earn 10% cash on every subsequent referral you introduce, across all product categories. No cap on introductions.</p>
+      </article>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="#contact" data-prefill="I'd like to join the BizPulse referral program." class="prefill inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100">Join the Referral Program</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TALK TO US ================= -->
+<section id="contact" class="scroll-mt-20 py-20">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-5">
+    <div class="lg:col-span-2">
+      <p class="text-xs font-bold uppercase tracking-[0.25em] text-sky-400">Talk To Us</p>
+      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Message our team leads directly.</h2>
+      <p class="mt-4 text-slate-400">Running a CA firm or a multi-branch business? Tell us what you need and we'll recommend the right edition and seat plan.</p>
+
+      <dl class="mt-8 space-y-4 text-sm">
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+          <dt class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Office</dt>
+          <dd class="mt-1 text-slate-300">Srijee Creations, South Babupara, Siliguri, West Bengal</dd>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+          <dt class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Support Hours</dt>
+          <dd class="mt-1 text-slate-300">10:00 AM – 6:00 PM, Monday to Saturday</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form id="leadForm" class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 lg:col-span-3" novalidate>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <label for="fName" class="block text-sm font-semibold text-slate-200">Full Legal Name</label>
+          <input id="fName" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100"
+                 class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
+                 placeholder="As on your PAN / GST registration">
+        </div>
+        <div>
+          <label for="fMobile" class="block text-sm font-semibold text-slate-200">Mobile Number</label>
+          <div class="mt-2 flex rounded-lg border border-slate-700 bg-slate-950 transition focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-400/30">
+            <span class="flex items-center border-r border-slate-700 px-3 text-slate-400">+91</span>
+            <input id="fMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required pattern="[6-9][0-9]{9}" maxlength="10"
+                   class="w-full rounded-r-lg bg-transparent px-4 py-3 text-white placeholder-slate-500 focus:outline-none" placeholder="98XXXXXXXX">
+          </div>
+        </div>
+        <div>
+          <label for="fEmail" class="block text-sm font-semibold text-slate-200">Email Address</label>
+          <input id="fEmail" name="email" type="email" autocomplete="email" required maxlength="150"
+                 class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
+                 placeholder="you@yourfirm.in">
+        </div>
+        <div class="sm:col-span-2">
+          <label for="fMsg" class="block text-sm font-semibold text-slate-200">Message</label>
+          <textarea id="fMsg" name="message" rows="5" required minlength="10" maxlength="2000"
+                    class="mt-2 w-full resize-y rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
+                    placeholder="Tell us about your business, number of users and the edition you're considering."></textarea>
+        </div>
+        <!-- honeypot: bots fill this, humans never see it -->
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+      </div>
+
+      <p id="formStatus" class="mt-4 hidden rounded-lg px-4 py-3 text-sm" role="status" aria-live="polite"></p>
+
+      <button type="submit" id="submitBtn"
+              class="mt-6 inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100 disabled:cursor-wait disabled:opacity-60">Send Message</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-slate-800 py-10 text-center text-sm text-slate-500">
+  <p class="text-lg font-black tracking-tight"><span class="text-white">Biz</span><span class="text-sky-400">Pulse</span></p>
+  <p class="mt-2 text-xs font-bold uppercase tracking-[0.25em] text-sky-400">A Creation of Srijee Creations</p>
+  <p class="mt-3">© <span id="yr">2026</span> Srijee Creations. All rights reserved.</p>
+</footer>
+
+<!-- ================= PAYMENT MODAL ================= -->
+<div id="payModal" class="hidden-modal fixed inset-0 z-50 flex items-end justify-center bg-slate-950/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+     role="dialog" aria-modal="true" aria-labelledby="payTitle" aria-hidden="true">
+  <div class="panel max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-slate-700 bg-slate-900 shadow-2xl sm:rounded-2xl">
+    <div class="flex items-start justify-between gap-4 border-b border-slate-800 p-6">
+      <div>
+        <p class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Secure checkout</p>
+        <h3 id="payTitle" class="mt-1 text-xl font-extrabold text-white">BizPulse</h3>
+        <p id="payPrice" class="mt-1 text-slate-400"></p>
+      </div>
+      <button type="button" id="payClose" class="rounded-lg border border-slate-700 p-2 text-slate-400 transition hover:border-slate-500 hover:text-white" aria-label="Close checkout">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <form id="payForm" class="p-6" novalidate>
+      <fieldset>
+        <legend class="text-sm font-semibold text-slate-200">Choose how you'd like to pay</legend>
+        <div class="mt-3 grid grid-cols-3 gap-2" role="radiogroup">
+          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
+            <input type="radio" name="method" value="upi" class="sr-only" checked> UPI
+          </label>
+          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
+            <input type="radio" name="method" value="netbanking" class="sr-only"> Net Banking
+          </label>
+          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
+            <input type="radio" name="method" value="card" class="sr-only"> Card
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- UPI -->
+      <div data-pane="upi" class="mt-5">
+        <label for="upiId" class="block text-sm font-semibold text-slate-200">UPI ID <span class="font-normal text-slate-500">(optional)</span></label>
+        <input id="upiId" type="text" autocomplete="off" placeholder="yourname@okhdfcbank"
+               class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30">
+        <p class="mt-2 text-xs text-slate-500">Works with Google Pay, PhonePe, Paytm, BHIM and every UPI app. Leave blank to scan a QR code instead.</p>
+      </div>
+
+      <!-- Net Banking -->
+      <div data-pane="netbanking" class="mt-5 hidden">
+        <label for="bankSel" class="block text-sm font-semibold text-slate-200">Select your bank</label>
+        <select id="bankSel" class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30">
+          <option value="">— Choose a bank —</option>
+          <option>State Bank of India</option>
+          <option>HDFC Bank</option>
+          <option>ICICI Bank</option>
+          <option>Axis Bank</option>
+          <option>Kotak Mahindra Bank</option>
+          <option>Punjab National Bank</option>
+          <option>Bank of Baroda</option>
+          <option>Canara Bank</option>
+          <option>Union Bank of India</option>
+          <option>Bank of India</option>
+          <option>Indian Bank</option>
+          <option>Central Bank of India</option>
+          <option>IndusInd Bank</option>
+          <option>IDFC FIRST Bank</option>
+          <option>Yes Bank</option>
+          <option>Federal Bank</option>
+          <option>UCO Bank</option>
+        </select>
+      </div>
+
+      <!-- Card -->
+      <div data-pane="card" class="mt-5 hidden">
+        <p class="text-sm font-semibold text-slate-200">Card type</p>
+        <div class="mt-2 flex gap-3">
+          <label class="flex flex-1 cursor-pointer items-center gap-2 rounded-lg border border-slate-700 px-4 py-3 text-sm has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10">
+            <input type="radio" name="cardType" value="debit" class="accent-sky-400" checked> Debit Card
+          </label>
+          <label class="flex flex-1 cursor-pointer items-center gap-2 rounded-lg border border-slate-700 px-4 py-3 text-sm has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10">
+            <input type="radio" name="cardType" value="credit" class="accent-sky-400"> Credit Card
+          </label>
+        </div>
+        <p class="mt-3 text-xs text-slate-500">RuPay, Visa and Mastercard accepted. You enter card details only on our payment partner's secure, RBI-compliant page — this website never sees your card number.</p>
+      </div>
+
+      <p id="payStatus" class="mt-5 hidden rounded-lg border border-sky-400/30 bg-sky-400/5 px-4 py-3 text-sm text-sky-100" role="status" aria-live="polite"></p>
+
+      <button type="submit" id="payBtn"
+              class="mt-6 w-full rounded-lg bg-sky-400 px-6 py-3.5 text-sm font-extrabold uppercase tracking-widest text-slate-950 transition hover:scale-[1.02] hover:bg-sky-300 active:scale-100">
+        Proceed to Pay
+      </button>
+      <p class="mt-3 text-center text-xs text-slate-500">Prices include 18% GST · Indian payment methods only</p>
+    </form>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — edit prices and endpoints here only.
+   All prices in ₹, GST-inclusive. renewal: null = one-time licence.
+   ===================================================================== */
+const CONFIG = {
+  formEndpoint: "contact.php",   // server script that receives the "Talk To Us" form
+  checkoutLive: false            // set true once the payment gateway is wired in startCheckout()
+};
+
+const GROUPS = [
+  { id: "starter",  label: "Starter Editions" },
+  { id: "standard", label: "BizPulse Standard" },
+  { id: "pro",      label: "BizPulse Pro" }
+];
+
+const PLANS = [
+  { id: "voice",    group: "starter",  name: "Voice Express",     tag: "Single User",               price: 199,   renewal: 99,   per: "/ yr",
+    blurb: "Mobile app for fast sales entry on the go." },
+  { id: "billing",  group: "starter",  name: "BizPulse Billing",  tag: "Single User · No Inventory", price: 499,   renewal: 249,  per: "/ yr",
+    blurb: "Desktop sales billing without stock tracking." },
+  { id: "lite",     group: "starter",  name: "BizPulse Lite",     tag: "Single User · Simple Bookkeeping", price: 1499, renewal: 749, per: "/ yr",
+    blurb: "Simple bookkeeping for small shopkeepers." },
+  { id: "stdSilver", group: "standard", name: "Standard Silver",  tag: "Single User · Annual",      price: 1999,  renewal: 999,  per: "/ yr",
+    blurb: "Core accounting with GST compliance." },
+  { id: "stdGold",   group: "standard", name: "Standard Gold",    tag: "Multi User · Annual",       price: 8899,  renewal: 4499, per: "/ yr",
+    blurb: "Standard for your whole accounts team." },
+  { id: "stdPlat",   group: "standard", name: "Standard Platinum", tag: "Multi User · Lifetime",    price: 17999, renewal: null, per: "one-time", platinum: true,
+    blurb: "Standard for your team, paid once." },
+  { id: "proSilver", group: "pro",      name: "Pro Silver",       tag: "Single User · Annual",      price: 6999,  renewal: 2999, per: "/ yr",
+    blurb: "The full suite for one Chartered Accountant." },
+  { id: "proGold",   group: "pro",      name: "Pro Gold",         tag: "Multi User · Annual",       price: 20999, renewal: 8999, per: "/ yr",
+    blurb: "The full suite for CA firms and teams." },
+  { id: "proPlat",   group: "pro",      name: "Pro Platinum",     tag: "Multi User · Lifetime",     price: 41999, renewal: null, per: "one-time", platinum: true,
+    blurb: "The full suite for your firm, paid once." }
+];
+
+/* Comparison rows: one value per plan, in PLANS order.
+   true = included, false = not included, string = shown as text. */
+const FEATURES = [
+  ["Platform",                    ["Mobile", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop"]],
+  ["Users",                       ["Single", "Single", "Single", "Single", "Multi", "Multi", "Single", "Multi", "Multi"]],
+  ["Licence",                     ["Annual", "Annual", "Annual", "Annual", "Annual", "Lifetime", "Annual", "Annual", "Lifetime"]],
+  ["Sales billing & invoicing",   [true, true, true, true, true, true, true, true, true]],
+  ["Bookkeeping",                 [false, false, "Simple", "Full", "Full", "Full", "Full", "Full", "Full"]],
+  ["Inventory & stock",           [false, false, false, true, true, true, true, true, true]],
+  ["GST compliance & returns",    [false, false, false, true, true, true, true, true, true]],
+  ["TDS / TCS",                   [false, false, false, true, true, true, true, true, true]],
+  ["Bank reconciliation",         [false, false, false, "Manual", "Manual", "Manual", "Automated", "Automated", "Automated"]],
+  ["Concurrent multi-user access",[false, false, false, false, true, true, false, true, true]],
+  ["CA audit dashboards & logs",  [false, false, false, false, false, false, true, true, true]],
+  ["Keyboard-driven workflow",    [true, true, true, true, true, true, true, true, true]]
+];
+/* ===================== END OF CONFIG ===================== */
+
+const inr = n => "₹" + n.toLocaleString("en-IN");
+const tick = '<svg class="mx-auto h-5 w-5 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Included"><path d="M5 12.5 10 17 19 7"/></svg>';
+const cross = '<span class="text-slate-600" aria-label="Not included">—</span>';
+const cell = v => v === true ? tick : v === false ? cross : `<span class="text-slate-200">${v}</span>`;
+const buyBtn = p =>
+  `<button type="button" data-plan="${p.id}" class="buy-btn w-full whitespace-nowrap rounded-lg px-2 py-2 text-xs font-extrabold uppercase tracking-wide transition hover:scale-[1.03] active:scale-100 ${p.platinum ? "bg-indigo-300 text-slate-950 hover:bg-indigo-200" : "border border-slate-600 text-white hover:border-sky-400 hover:bg-sky-400/10"}">Buy Now</button>`;
+const priceBlock = (p, big) => `
+  <div class="mt-3 ${big ? "text-3xl" : "text-2xl"} font-black tracking-tight text-white">${inr(p.price)}</div>
+  <div class="whitespace-nowrap text-xs font-medium text-slate-400">${p.per === "one-time" ? (big ? "one-time payment" : "one-time") : "first year"}</div>
+  <div class="mt-1 text-xs leading-snug text-slate-400">${p.renewal
+    ? `Renewal<br><span class="whitespace-nowrap font-semibold text-emerald-400">${inr(p.renewal)} / yr</span>`
+    : `Lifetime<br><span class="whitespace-nowrap font-semibold text-emerald-400">No renewals</span>`}</div>`;
+const platTag = '<span class="inline-block rounded border border-indigo-300/60 bg-indigo-400/15 px-1.5 py-1 text-[9px] font-extrabold uppercase leading-tight tracking-wide text-indigo-200">Lifetime License<br><span class="font-semibold normal-case tracking-normal text-indigo-100">Infinite Corporate Pack</span></span>';
+
+/* ----- Desktop table (xl and up) ----- */
+function renderTable(){
+  const groupRow = GROUPS.map(g => {
+    const n = PLANS.filter(p => p.group === g.id).length;
+    return `<th scope="colgroup" colspan="${n}" class="border-l border-slate-800 bg-slate-900 px-4 py-3 text-center text-[11px] font-extrabold uppercase tracking-[0.2em] text-sky-400">${g.label}</th>`;
+  }).join("");
+  const head = PLANS.map(p => `
+    <th scope="col" class="relative border-l border-slate-800 px-3 py-4 text-left align-top font-normal ${p.platinum ? "bg-indigo-500/[0.08] shadow-[inset_0_0_0_1px_rgba(165,180,252,.45)]" : ""}">
+      <div class="mb-2 h-[54px]">${p.platinum ? '<span class="absolute -top-px left-0 right-0 h-0.5 bg-indigo-300"></span>' + platTag : ""}</div>
+      <div class="min-h-[40px] text-sm font-extrabold leading-snug text-white">${p.name}</div>
+      <div class="mt-1 min-h-[38px] text-[10px] font-bold uppercase leading-tight tracking-wide text-sky-400">${p.tag}</div>
+      ${priceBlock(p, false)}
+      <div class="mt-4">${buyBtn(p)}</div>
+    </th>`).join("");
+  const rows = FEATURES.map(([label, vals], i) => `
+    <tr class="${i % 2 ? "bg-slate-900/30" : ""} transition hover:bg-slate-800/40">
+      <th scope="row" class="px-4 py-3 text-left text-[13px] font-medium text-slate-300">${label}</th>
+      ${vals.map((v, j) => `<td class="border-l border-slate-800 p-3 text-center text-[13px] ${PLANS[j].platinum ? "bg-indigo-500/[0.05]" : ""}">${cell(v)}</td>`).join("")}
+    </tr>`).join("");
+  document.getElementById("cmpTable").innerHTML = `
+    <colgroup><col class="w-[150px]">${PLANS.map(() => "<col>").join("")}</colgroup>
+    <thead class="border-b border-slate-800 bg-slate-900/60">
+      <tr><th class="bg-slate-900"></th>${groupRow}</tr>
+      <tr><th scope="col" class="px-4 py-4 text-left align-bottom text-xs font-bold uppercase tracking-widest text-slate-500">Compare</th>${head}</tr>
+    </thead>
+    <tbody>${rows}</tbody>`;
+}
+
+/* ----- Cards (below xl) ----- */
+function renderCards(){
+  document.getElementById("cmpCards").innerHTML = GROUPS.map(g => `
+    <div>
+      <h3 class="mb-4 text-xs font-extrabold uppercase tracking-[0.2em] text-sky-400">${g.label}</h3>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        ${PLANS.map((p, j) => ({ p, j })).filter(({ p }) => p.group === g.id).map(({ p, j }) => `
+        <article class="relative flex flex-col rounded-2xl border ${p.platinum ? "border-indigo-300/70 bg-indigo-500/[0.06] shadow-[0_0_50px_-20px_rgba(165,180,252,.7)]" : "border-slate-800 bg-slate-900/60"} p-6">
+          ${p.platinum ? `<div class="mb-3">${platTag}</div>` : ""}
+          <h4 class="text-lg font-extrabold text-white">${p.name}</h4>
+          <div class="mt-1 text-[11px] font-bold uppercase tracking-wider text-sky-400">${p.tag}</div>
+          ${priceBlock(p, true)}
+          <p class="mt-3 text-sm text-slate-400">${p.blurb}</p>
+          <ul class="mt-4 flex-1 divide-y divide-slate-800 text-sm">
+            ${FEATURES.map(([label, vals]) => `
+              <li class="flex items-center justify-between gap-3 py-2">
+                <span class="text-slate-400">${label}</span>
+                <span class="shrink-0">${vals[j] === true ? tick.replace("mx-auto ", "") : cell(vals[j])}</span>
+              </li>`).join("")}
+          </ul>
+          <div class="mt-5">${buyBtn(p)}</div>
+        </article>`).join("")}
+      </div>
+    </div>`).join("");
+}
+
+renderTable();
+renderCards();
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* ----- Mobile menu ----- */
+const menuBtn = document.getElementById("menuBtn");
+const tray = document.getElementById("mobileTray");
+function setMenu(open){
+  tray.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  document.getElementById("iconOpen").classList.toggle("hidden", open);
+  document.getElementById("iconClose").classList.toggle("hidden", !open);
+}
+menuBtn.addEventListener("click", () => setMenu(!tray.classList.contains("open")));
+document.querySelectorAll(".mobile-link").forEach(a => a.addEventListener("click", () => setMenu(false)));
+window.addEventListener("resize", () => { if (window.innerWidth >= 768) setMenu(false); });
+
+/* ----- Payment modal ----- */
+const modal = document.getElementById("payModal");
+const payForm = document.getElementById("payForm");
+const payStatus = document.getElementById("payStatus");
+let activePlan = null, lastFocus = null;
+
+function openModal(plan){
+  activePlan = plan; lastFocus = document.activeElement;
+  document.getElementById("payTitle").textContent = `${plan.name} — ${plan.tag}`;
+  document.getElementById("payPrice").innerHTML = `${inr(plan.price)} <span class="text-slate-500">${plan.per}</span>${plan.renewal ? ` · renews at ${inr(plan.renewal)} / yr` : ""}`;
+  document.getElementById("payBtn").textContent = `Proceed to Pay ${inr(plan.price)}`;
+  payStatus.classList.add("hidden");
+  modal.classList.remove("hidden-modal");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => modal.querySelector('input[name="method"]:checked').focus(), 50);
+}
+function closeModal(){
+  modal.classList.add("hidden-modal");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest(".buy-btn");
+  if (b) openModal(PLANS.find(p => p.id === b.dataset.plan));
+});
+document.getElementById("payClose").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => {
+  if (modal.getAttribute("aria-hidden") === "true") return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "Tab"){ // keep keyboard focus inside the dialog
+    const checkedRadio = modal.querySelector('input[name="method"]:checked');
+    const rest = [...modal.querySelectorAll("button,input:not(.sr-only),select,textarea")].filter(el => el.offsetParent !== null);
+    const list = [checkedRadio, ...rest];
+    const first = list[0], last = list[list.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
   }
+});
+
+payForm.querySelectorAll('input[name="method"]').forEach(r => r.addEventListener("change", () => {
+  payForm.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hidden", p.dataset.pane !== r.value));
+  payStatus.classList.add("hidden");
+}));
+
+["upiId","bankSel"].forEach(id => document.getElementById(id).addEventListener("input", () => payStatus.classList.add("hidden")));
+function showPayStatus(msg){ payStatus.textContent = msg; payStatus.classList.remove("hidden"); }
+
+payForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const method = payForm.querySelector('input[name="method"]:checked').value;
+  let detail = "";
+  if (method === "upi"){
+    const v = document.getElementById("upiId").value.trim();
+    if (v && !/^[\w.\-]{2,256}@[a-zA-Z]{2,64}$/.test(v)) return showPayStatus("Enter a valid UPI ID, like yourname@okhdfcbank — or leave it blank to scan a QR code.");
+    detail = v ? `UPI (${v})` : "UPI (QR)";
+  } else if (method === "netbanking"){
+    const bank = document.getElementById("bankSel").value;
+    if (!bank) return showPayStatus("Select your bank to continue.");
+    detail = `Net Banking (${bank})`;
+  } else {
+    detail = `${payForm.querySelector('input[name="cardType"]:checked').value === "credit" ? "Credit" : "Debit"} Card`;
+  }
+  startCheckout(activePlan, method, detail);
+});
+
+/* Hook for the live payment gateway (Razorpay Checkout with a server-created order).
+   Until CONFIG.checkoutLive is true, buyers are routed to the enquiry form with their
+   choice pre-filled, so no sale is lost. */
+function startCheckout(plan, method, detail){
+  if (CONFIG.checkoutLive){
+    /* TODO: create the order on the licence server, then open the gateway here. */
+    return;
+  }
+  showPayStatus("Online checkout opens shortly. We've noted your choice — send us your details and our team will activate your licence.");
+  setTimeout(() => {
+    closeModal();
+    prefillContact(`I'd like to buy ${plan.name} (${plan.tag}) at ${inr(plan.price)} ${plan.per}, paying by ${detail}.`);
+  }, 1800);
+}
+
+/* ----- Lead form ----- */
+const leadForm = document.getElementById("leadForm");
+const formStatus = document.getElementById("formStatus");
+function prefillContact(text){
+  document.getElementById("fMsg").value = text;
+  document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+  setTimeout(() => document.getElementById("fName").focus({ preventScroll: true }), 700);
+}
+document.querySelectorAll(".prefill").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault(); prefillContact(a.dataset.prefill);
+}));
+function setFormStatus(ok, msg){
+  formStatus.className = `mt-4 rounded-lg px-4 py-3 text-sm ${ok ? "border border-emerald-400/40 bg-emerald-400/10 text-emerald-200" : "border border-rose-400/40 bg-rose-400/10 text-rose-200"}`;
+  formStatus.textContent = msg;
+}
+leadForm.addEventListener("submit", async e => {
+  e.preventDefault();
+  const checks = [
+    ["fName",   "Enter your full legal name."],
+    ["fMobile", "Enter a valid 10-digit Indian mobile number."],
+    ["fEmail",  "Enter a valid email address."],
+    ["fMsg",    "Write a short message (at least 10 characters)."]
+  ];
+  for (const [id, msg] of checks){
+    const el = document.getElementById(id);
+    if (!el.checkValidity()){ setFormStatus(false, msg); el.focus(); return; }
+  }
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true; btn.textContent = "Sending…";
+  try {
+    const res = await fetch(CONFIG.formEndpoint, { method: "POST", body: new FormData(leadForm), headers: { "Accept": "application/json" } });
+    if (!res.ok) throw new Error(res.status);
+    leadForm.reset();
+    setFormStatus(true, "Thank you! Your message is with our team. We'll call you back during support hours (10 AM – 6 PM, Mon–Sat).");
+  } catch {
+    setFormStatus(false, "We couldn't send your message just now. Please try again in a minute.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Send Message";
+  }
+});
+</script>
+</body>
+</html>
