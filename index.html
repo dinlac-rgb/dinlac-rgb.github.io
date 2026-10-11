@@ -3,48 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BizPulse Pro - Balancing Your Books</title>
+    <title>Srijee Creations | BizPulse Workspace</title>
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #FFFFFF; color: #0D2C54; margin: 0; padding: 0; text-align: center; }
-        header { background-color: #0D2C54; color: #FFFFFF; padding: 20px; font-size: 14px; font-weight: bold; }
-        .hero { padding: 60px 20px; background-color: #E6F0FA; }
-        h1 { font-size: 32px; margin-bottom: 10px; }
-        .tagline { font-style: italic; font-size: 18px; margin-bottom: 30px; }
-        .btn-main { background-color: #FF8C00; color: white; padding: 15px 30px; border: none; font-size: 18px; font-weight: bold; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.2s; }
-        .btn-main:hover { background-color: #E07B00; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; text-align: left; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #FFFFFF; }
-        th, td { border: 1px solid #CCCCCC; padding: 12px; text-align: left; font-size: 14px; }
-        th { background-color: #0D2C54; color: white; }
-        .ca-box { background-color: #FFF3CD; border: 1px solid #FFEBAA; padding: 20px; border-radius: 5px; margin-top: 40px; color: #856404; }
+        :root {
+            --bg-color: #0a192f;
+            --card-bg: #112240;
+            --accent-blue: #00bcd4;
+            --light-blue: #64ffda;
+            --contrast-gold: #ffd700;
+            --text-main: #e2e8f0;
+            --text-dark: #8892b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+
+        /* Gated Privacy Layer */
+        #privacy-gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 9999;
+        }
+        .gate-box {
+            background: var(--card-bg); padding: 40px; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; max-width: 400px; width: 90%;
+        }
+        .gate-title { color: var(--accent-blue); margin-bottom: 10px; font-size: 24px; }
+        .gate-subtitle { font-size: 13px; color: var(--text-dark); margin-bottom: 20px; }
+        .gate-box input {
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 4px;
+            border: 1px solid var(--text-dark); background: var(--bg-color); color: white; text-align: center;
+        }
+        .gate-box button {
+            background: var(--accent-blue); color: var(--bg-color); border: none;
+            padding: 12px 24px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;
+        }
+        .gate-box button:hover { background: var(--light-blue); }
+
+        #main-site { display: none; }
+        
+        header { 
+            background: var(--card-bg); border-bottom: 1px solid rgba(0,188,212,0.2); 
+            position: sticky; top: 0; z-index: 100; padding: 15px 40px;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        
+        /* High-Contrast Script Tagline Rule for page 1 restriction */
+        .script-branding { 
+            font-family: 'Playball', cursive; font-size: 21px; color: var(--contrast-gold); margin-bottom: 4px;
+        }
+        .main-brand-title { font-size: 26px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; }
+        
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { 
+            color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 500;
+            padding: 8px 12px; border-radius: 4px; cursor: pointer;
+        }
+        nav ul li a:hover, nav ul li a.active { background: rgba(0,188,212,0.15); color: var(--accent-blue); }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .page-section { display: none; min-height: 70vh; animation: fadeIn 0.4s ease-in-out forwards; }
+        .page-section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { font-size: 26px; color: var(--accent-blue); margin-bottom: 25px; border-bottom: 2px solid var(--card-bg); padding-bottom: 10px; }
+        p { font-size: 13.5px; line-height: 1.6; color: var(--text-main); }
+        .crisp-detail { font-size: 13.5px; color: var(--text-dark); }
+
+        /* Feature Animation Visualizer Hub on Home Page */
+        .animation-showcase {
+            background: var(--card-bg); border: 1px solid rgba(0, 188, 212, 0.1);
+            border-radius: 8px; padding: 30px; margin-top: 30px;
+        }
+        .version-selector-row { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+        .ver-btn {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-dark); padding: 8px 16px; font-size: 12px; border-radius: 4px; cursor: pointer;
+        }
+        .ver-btn.active { background: rgba(0, 188, 212, 0.1); border-color: var(--accent-blue); color: var(--accent-blue); }
+        
+        .animation-display-box {
+            background: #071224; border-radius: 6px; height: 160px;
+            display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+        }
+        
+        /* Version Animation Profiles */
+        .voice-wave { display: flex; align-items: center; gap: 4px; }
+        .bar { width: 4px; height: 15px; background: var(--accent-blue); border-radius: 2px; animation: pulse 0.6s ease-in-out infinite alternate; }
+        .bar:nth-child(2) { animation-delay: 0.15s; height: 35px; }
+        .bar:nth-child(3) { animation-delay: 0.3s; height: 20px; }
+        .bar:nth-child(4) { animation-delay: 0.45s; height: 40px; }
+        @keyframes pulse { from { transform: scaleY(0.5); } to { transform: scaleY(1.3); } }
+
+        .ticker-stream { text-align: center; animation: scrollText 2.5s linear infinite; font-family: monospace; color: var(--light-blue); font-size: 12px; }
+        @keyframes scrollText { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(-30px); opacity: 1; } }
+
+        .scale-box { font-size: 36px; animation: tilt 1.5s ease-in-out infinite alternate; }
+        @keyframes tilt { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+
+        .sync-ring { width: 40px; height: 40px; border: 3px dashed var(--accent-blue); border-radius: 50%; animation: spin 3s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .matrix-flash { width: 50px; height: 50px; border: 2px solid var(--contrast-gold); background: rgba(255, 215, 0, 0.05); animation: flash 1.2s ease-in-out infinite alternate; }
+        @keyframes flash { from { opacity: 0.3; transform: scale(0.9); } to { opacity: 1; transform: scale(1.1); } }
+
+        footer { text-align: center; padding: 40px; margin-top: 60px; color: var(--text-dark); font-size: 12px; border-top: 1px solid var(--card-bg); }
     </style>
 </head>
 <body>
-    <header>A Srijee Creations' Creation | Managing your Business with Ease and Accuracy.</header>
-    <div class="hero">
-        <h1>The Power of Tally Workflows. The Beauty of Modern Design.</h1>
-        <div class="tagline">"Balancing your books, strengthening your bottom line."</div>
-        <a href="Bizpulsepro.zip" class="btn-main">📥 Download Desktop Installer (94MB)</a>
-    </div>
-    <div class="container">
-        <h2>BizPulse Software Suite Pricing Matrix</h2>
-        <table>
-            <tr><th>Product Edition</th><th>Annual Subscription</th><th>Annual Renewal Rate</th><th>Active Features</th></tr>
-            <tr><td><b>BizPulse Billing</b></td><td>₹499 / Year</td><td>₹299 / Year</td><td>Standalone rapid invoicing wrapper.</td></tr>
-            <tr><td><b>BizPulse Lite</b></td><td>₹999 / Year</td><td>₹499 / Year</td><td>Simplified bookkeeping for shopkeepers.</td></tr>
-            <tr><td><b>BizPulse Standard</b></td><td>₹1,999 / Year</td><td>₹999 / Year</td><td>Complete accounting, advanced inventory, local GST rules.</td></tr>
-            <tr><td><b>BizPulse Pro</b></td><td>₹17,499 / Year</td><td>₹6,999 / Year</td><td>Multi-User Team Plan, GSTR-1 export, auto bank matching.</td></tr>
-            <tr><td><b>BizPulse Pro Lifetime</b></td><td>₹58,330 (One-Time)</td><td>₹0 (Perpetual)</td><td>Unlimited Lifetime license with every premium feature.</td></tr>
-        </table>
-        
-        <div class="ca-box">
-            <h3>📢 Join the Srijee Creations Professional CA Referral Network!</h3>
-            <p>Recommend BizPulse software to your corporate clients or colleagues and unlock our definitive commission rewards:</p>
-            <ul>
-                <li><b>15% Cashback</b> for your very first customer introduction submitted within 30 days.</li>
-                <li><b>10% Recurring Commission</b> on every single software referral thereafter across all five editions.</li>
-            </ul>
+
+    <div id="privacy-gate">
+        <div class="gate-box">
+            <div class="gate-title">Srijee Creations</div>
+            <div class="gate-subtitle">BizPulse Private Gateway Node</div>
+            <input type="password" id="gate-pass" placeholder="Enter System Password">
+            <button onclick="checkGatePass()">Authorize Workspace Access</button>
+            <div id="gate-error" style="color:#ff5252; font-size:12px; margin-top:10px; display:none;">Invalid Code. Access Denied.</div>
         </div>
     </div>
-</body>
-</html>
+
+    <div id="main-site">
+        <header>
+            <div class="nav-container">
+                <div class="brand-logo-area">
+                    <!-- Controlled exclusively to render matching image design criteria on home page only -->
+                    <div id="dynamic-tagline" class="script-branding">Creation of Srijee Creations</div>
+                    <div class="main-brand-title">BIZPULSE WORKSPACE</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a onclick="switchTab('home')" id="nav-home" class="active">Home</a></li>
+                        <li><a style="color:var(--text-dark); cursor:not-allowed;">Pricing &amp; Download</a></li>
+                        <li><a style="color:var(--text-dark); cursor:not-allowed;">Partner Network</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <section id="sect-home" class="page-section active">
+                <h2>Corporate Introduction</h2>
+                <p style="margin-bottom: 25px;">Welcome to the clean landing zone of <strong>Srijee Creations</strong>. This workspace layer is built to display our active dynamic accounting modules, operational system variants, and digital application assets under maximum corporate security constraints.</p>
+                
+                <!-- Custom Dynamic Match Animations Setup Block -->
+                <div class="animation-showcase">
+                    <p style="font-weight:600; color:#ffffff; margin-bottom:6px;">Interactive Application Feature Visualizer</p>
+                    <p class="crisp-detail" style="margin-bottom:20px;">Select a software version tier below to preview its specific feature animation layout profile:</p>
+                    <div class="version-selector-row">
+                        <button class="ver-btn active" onclick="playAnim('pocket', this)">BizPulse Pocket</button>
+                        <button class="ver-btn" onclick="playAnim('billing', this)">BizPulse Billing</button>
+                        <button class="ver-btn" onclick="playAnim('lite', this)">BizPulse Lite</button>
+                        <button class="ver-btn" onclick="playAnim('standard', this)">BizPulse Standard</button>
+                        <button class="ver-btn" onclick="playAnim('pro', this)">BizPulse Pro</button>
+                    </div>
+                    
+                    <div class="animation-display-box" id="anim-screen">
+                        <div class="voice-wave">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            &copy; 2026 Srijee Creations. Private Development Node Active.
+        </footer>
+    </div>
+
+    <script>
