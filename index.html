@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srijee Creations | BizPulse Workspace Portal</title>
+    <!-- Importing a clean, high-precision script font framework -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +12,7 @@
             --card-bg: #112240;
             --accent-blue: #00bcd4;
             --light-blue: #64ffda;
-            --contrast-gold: #ffd700;
+            --contrast-gold: #ffd700; /* Rich gold tone restored */
             --text-main: #e2e8f0;
             --text-dark: #8892b0;
         }
@@ -28,7 +29,7 @@
             overflow-x: hidden; 
         }
 
-        /* Privacy Gatekeeper Card & User Authentication Panels */
+        /* Central Gated Authentication Shell Container Layout */
         #auth-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-color); display: flex; flex-direction: column;
@@ -39,20 +40,32 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; max-width: 420px; width: 90%;
             border: 1px solid rgba(0, 188, 212, 0.1);
         }
-        .logo-display {
-            font-size: 32px; font-weight: 800; color: #ffffff; letter-spacing: 1px; margin-bottom: 5px;
+        
+        .logo-text-display {
+            font-size: 32px; 
+            font-weight: 800; 
+            color: #ffffff; 
+            letter-spacing: 1px; 
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
         
-        /* Updated tagline style with your exact string */
+        /* Configured with a dedicated thin weight property profile mapping */
         .script-tagline {
-            font-family: 'Playball', cursive; font-size: 19px; color: var(--contrast-gold);
-            margin-bottom: 25px; text-transform: none; display: block;
+            font-family: 'Playball', cursive; 
+            font-size: 15px; 
+            font-weight: 300; /* Enforces a lightweight, elegant script structure */
+            color: var(--contrast-gold);
+            margin-bottom: 25px; 
+            text-transform: uppercase; 
+            display: block;
+            letter-spacing: 2px;
         }
         
         .auth-panel { display: none; }
         .auth-panel.active { display: block; }
         
-        .auth-container h3 { font-size: 16px; color: var(--accent-blue); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .auth-container h3 { font-size: 13px; color: var(--accent-blue); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
         .auth-container input {
             width: 100%; padding: 11px; margin-bottom: 12px; border-radius: 4px;
             border: 1px solid var(--text-dark); background: var(--bg-color); color: white;
@@ -70,7 +83,7 @@
         .auth-nav-links a:hover { text-decoration: underline; }
         .alert-msg { font-size: 12px; margin-top: 10px; display: none; font-weight: 500; }
 
-        /* Main Workspace Application Environment Shell */
+        /* Core Application Environment Main Shell */
         #main-site { display: none; }
         
         header { 
@@ -97,7 +110,7 @@
         .shortcut-txt { font-weight: normal; }
         .shortcut-txt text { font-weight: bold; color: var(--light-blue); }
 
-        /* Interactive Showcase Styles */
+        /* Animation Feature Hub Canvas Section */
         .animation-showcase {
             background: var(--card-bg); border: 1px solid rgba(0, 188, 212, 0.1);
             border-radius: 8px; padding: 30px; margin-top: 30px;
@@ -113,7 +126,7 @@
             display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
         
-        /* Voice engine pulse wave array */
+        /* Interactive Animation Wave Parameters */
         .voice-wave { display: flex; align-items: center; gap: 4px; }
         .bar { width: 4px; height: 15px; background: var(--accent-blue); border-radius: 2px; animation: pulse 0.6s ease-in-out infinite alternate; }
         .bar:nth-child(2) { animation-delay: 0.15s; height: 32px; }
@@ -141,7 +154,7 @@
     <!-- Centralized Multi-Form Authentication Gateway -->
     <div id="auth-gate">
         <div class="auth-container">
-            <div class="logo-display">BIZPULSE</div>
+            <div class="logo-text-display">BIZPULSE</div>
             <div class="script-tagline">A CREATION OF SRIJEE CREATIONS</div>
 
             <!-- Form 1: Master Access Login -->
@@ -174,14 +187,3 @@
                 <input type="text" id="pc-user" placeholder="Confirm Workspace Username">
                 <input type="password" id="pc-old" placeholder="Provide Current Active Password">
                 <input type="password" id="pc-new" placeholder="Enter Brand New Secure Password">
-                <button onclick="handlePasswordChange()">Update Account Password</button>
-                <div id="recovery-status" class="alert-msg"></div>
-                <div class="auth-nav-links">
-                    Cancel Operation? <a onclick="switchAuthPanel('login')">Return to Log In</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <header>
-            <div class="nav-container">
