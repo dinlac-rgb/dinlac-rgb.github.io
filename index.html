@@ -1,673 +1,1295 @@
 <!DOCTYPE html>
-<html lang="en-IN" class="scroll-smooth">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BizPulse — Keyboard-Driven Accounting & GST Software for India</title>
-<meta name="description" content="BizPulse by Srijee Creations: keyboard-driven accounting, GST compliance and inventory for Indian businesses and Chartered Accountants. Download for Windows.">
-<meta name="theme-color" content="#020617">
-<link rel="canonical" href="https://mybizpulse.in/">
-<meta property="og:title" content="BizPulse — Economy. Accuracy. Efficiency.">
-<meta property="og:description" content="Honest pricing. Accurate numbers. Total peace of mind.">
-<meta property="og:url" content="https://mybizpulse.in/">
-<meta property="og:type" content="website">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizPulse | Home</title>
+<meta name="description" content="BizPulse by Srijee Creations: GST-ready accounting software for Indian businesses, from mobile billing to full CA practice suites.">
+<meta name="theme-color" content="#08172f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
-        },
-        colors: { pulse: '#38bdf8' }
-      }
-    }
-  };
-</script>
-
+<link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
 <style>
-  /* ---------- Reset & base ---------- */
-  *,*::before,*::after{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-  img,svg{display:block;max-width:100%}
-  button,input,select,textarea{font:inherit;color:inherit}
-  :focus-visible{outline:2px solid #38bdf8;outline-offset:3px}
-
-  /* ---------- Engineering grid backdrop ---------- */
-  .grid-bg{
-    background-image:
-      linear-gradient(rgba(148,163,184,.07) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(148,163,184,.07) 1px,transparent 1px);
-    background-size:48px 48px;
-    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 30%,#000 35%,transparent 85%);
-            mask-image:radial-gradient(ellipse 75% 65% at 50% 30%,#000 35%,transparent 85%);
+  :root {
+    --bg: #08172f;
+    --bg-2: #0c2142;
+    --surface: #10284d;
+    --surface-2: #143059;
+    --border: #1f3d6b;
+    --border-strong: #2c5290;
+    --text: #e9eef7;
+    --muted: #9fb0cc;
+    --white: #ffffff;
+    --neon: #38c9ff;
+    --neon-deep: #1798d6;
+    --gold: #d8b25a;
+    --gold-soft: #e9cf8e;
+    --gold-deep: #b98a2c;
+    --success: #43d29a;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    --font-ui: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --text-size: 15px;
   }
 
-  /* ---------- ECG monitor animation ---------- */
-  .ecg-trace{
-    stroke-dasharray:160 1100;
-    animation:ecg 2.8s linear infinite;
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-ui);
+    font-size: var(--text-size);
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
   }
-  @keyframes ecg{from{stroke-dashoffset:1260}to{stroke-dashoffset:0}}
-  .ecg-dot{animation:blink 1.4s ease-in-out infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 
-  /* ---------- Mobile tray ---------- */
-  #mobileTray{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
-  #mobileTray.open{grid-template-rows:1fr}
-  #mobileTray > div{overflow:hidden}
+  a { color: var(--neon); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-  /* ---------- Modal ---------- */
-  #payModal{transition:opacity .2s ease}
-  #payModal.hidden-modal{opacity:0;pointer-events:none;visibility:hidden}
-  #payModal .panel{transition:transform .25s ease}
-  #payModal.hidden-modal .panel{transform:translateY(16px) scale(.98)}
+  h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.25; }
+  p { margin: 0; }
 
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .ecg-trace{stroke-dasharray:none}
-    html{scroll-behavior:auto}
+  button { font: inherit; color: inherit; }
+
+  :focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+
+  /* ---------- Brand (shared by splash and header) ---------- */
+  .logo {
+    margin: 0;
+    font-family: var(--font-ui);
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    color: var(--white);
+  }
+  .tagline {
+    margin: 4px 0 0;
+    padding: 0;
+    font-family: "Playball", cursive;
+    font-size: calc(var(--text-size) - 2pt);
+    font-weight: 300;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1.35;
+    color: var(--gold);
+    background: none;
+    border: 0;
+  }
+
+  /* ---------- Splash ---------- */
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: var(--bg);
+    animation: splash-out 450ms ease 2s forwards;
+  }
+  .splash-box {
+    width: min(400px, 100%);
+    padding: 34px 32px 28px;
+    text-align: center;
+    background: var(--bg-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+  }
+  .splash-progress {
+    margin-top: 24px;
+    height: 4px;
+    background: #17325c;
+    overflow: hidden;
+  }
+  .splash-progress span {
+    display: block;
+    height: 100%;
+    background: var(--neon);
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: splash-fill 2s linear forwards;
+  }
+  @keyframes splash-fill { to { transform: scaleX(1); } }
+  @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 16px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand a { color: inherit; text-decoration: none; }
+  .brand { display: inline-flex; flex-direction: column; align-items: flex-start; }
+  .brand-line {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin-top: 8px;
+    border-radius: 2px;
+    background: rgba(56, 201, 255, 0.18);
+    overflow: hidden;
+  }
+  .brand-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon), var(--gold), transparent);
+    animation: brand-sweep 3.2s ease-in-out infinite;
+  }
+  @keyframes brand-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-line::after { animation: none; width: 100%; opacity: 0.6; }
+  }
+  .support-badge {
+    padding: 5px 12px;
+    font-size: 12.5px;
+    color: var(--muted);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .tabbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabbar::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    padding: 12px 14px 11px;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 150ms, border-color 150ms;
+  }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected="true"] { color: var(--white); border-bottom-color: var(--neon); }
+
+  /* ---------- Pages ---------- */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 16px 64px;
+  }
+  .page[hidden] { display: none; }
+  .page.is-entering { animation: page-in 220ms ease-out; }
+  @keyframes page-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .page-head { margin-bottom: 28px; max-width: 760px; }
+  .eyebrow {
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .page-head h2 { font-size: calc(26px - 2pt); margin-bottom: 10px; }
+  .page-head p { color: var(--muted); }
+
+  .section-title {
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    font-size: 17px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title span { font-size: 12.5px; font-weight: 400; color: var(--muted); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+  .card h3 { font-size: 17px; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 14px; }
+  .card p + p { margin-top: 8px; }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: filter 150ms, border-color 150ms, background 150ms;
+  }
+  .btn:hover { text-decoration: none; }
+  .btn-primary { background: linear-gradient(180deg, var(--neon), var(--neon-deep)); color: #04121c; }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-outline { background: transparent; border-color: var(--border-strong); color: var(--text); }
+  .btn-outline:hover { border-color: var(--neon); }
+  .btn-gold { background: linear-gradient(180deg, var(--gold-soft), var(--gold-deep)); color: #2a1c03; }
+  .btn-gold:hover { filter: brightness(1.06); }
+  .btn.is-disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+
+  .actions { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ---------- Home ---------- */
+  .hero {
+    padding: 30px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--surface-2), var(--bg-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .hero h2 { font-size: calc(28px - 2pt); margin-bottom: 12px; max-width: 720px; }
+  .hero p { color: var(--muted); max-width: 720px; }
+  .card-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 14px;
+    border-radius: 9px;
+    background: rgba(56, 201, 255, 0.12);
+    color: var(--neon);
+  }
+  .card-icon svg { width: 20px; height: 20px; }
+
+  /* ---------- Products ---------- */
+  .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .product {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .product-body { padding: 18px 18px 6px; }
+  .product-body h3 { font-size: 17px; }
+  .product-kicker { font-size: 12.5px; color: var(--gold); margin-top: 2px; }
+  .product-body p { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .product ul { margin: 10px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+  .product li { margin-bottom: 3px; }
+  .product-foot { margin-top: auto; padding: 14px 18px 18px; }
+  .product-foot .btn { width: 100%; }
+
+  .demo {
+    position: relative;
+    height: 150px;
+    margin: 0 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .demo:not(.is-running) .anim { animation: none !important; }
+
+  /* Pocket: voice pulse wave */
+  .wave { display: flex; align-items: center; gap: 4px; height: 80px; }
+  .wave span {
+    display: block;
+    width: 5px;
+    height: 80px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--neon), var(--neon-deep));
+    transform: scaleY(0.18);
+    animation: wave 900ms ease-in-out infinite;
+  }
+  .wave span:nth-child(2n) { animation-duration: 760ms; }
+  .wave span:nth-child(3n) { animation-duration: 1040ms; }
+  .wave span:nth-child(1) { animation-delay: -100ms; }
+  .wave span:nth-child(2) { animation-delay: -250ms; }
+  .wave span:nth-child(3) { animation-delay: -400ms; }
+  .wave span:nth-child(4) { animation-delay: -550ms; }
+  .wave span:nth-child(5) { animation-delay: -700ms; }
+  .wave span:nth-child(6) { animation-delay: -150ms; }
+  .wave span:nth-child(7) { animation-delay: -300ms; }
+  .wave span:nth-child(8) { animation-delay: -450ms; }
+  .wave span:nth-child(9) { animation-delay: -600ms; }
+  .wave span:nth-child(10) { animation-delay: -50ms; }
+  .wave span:nth-child(11) { animation-delay: -350ms; }
+  .wave span:nth-child(12) { animation-delay: -500ms; }
+  .wave span:nth-child(13) { animation-delay: -650ms; }
+  .wave span:nth-child(14) { animation-delay: -200ms; }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.18); }
+    50% { transform: scaleY(1); }
+  }
+  .mic-dot {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+  .demo.is-running .mic-dot { background: #ff5d6c; animation: blink 1s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+
+  /* Billing: invoice ticker */
+  .ticker {
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    width: 100%;
+    height: 100%;
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ticker li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    animation: ticker-in 260ms ease-out;
+  }
+  .ticker .inv-no { color: var(--muted); }
+  .ticker .inv-amt { color: var(--success); font-weight: 600; }
+  .ticker-idle { color: var(--muted); font-size: 13px; }
+  @keyframes ticker-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Lite: balancing scale */
+  .scale-svg { width: 200px; height: 120px; overflow: visible; }
+  .scale-svg line, .scale-svg path { stroke: var(--muted); stroke-width: 2; fill: none; stroke-linecap: round; }
+  .scale-svg .beam line { stroke: var(--neon); stroke-width: 3; }
+  .scale-svg .beam circle { fill: var(--neon); }
+  .scale-svg .base { fill: var(--border-strong); }
+  .scale-svg .pan path { fill: rgba(216, 178, 90, 0.18); stroke: var(--gold); }
+  .scale-svg text { fill: var(--gold-soft); font: 600 10px var(--font-ui); text-anchor: middle; }
+  .scale-svg .beam { transform-box: view-box; transform-origin: 100px 30px; animation: beam-tilt 2.4s ease-in-out infinite; }
+  .scale-svg .pan-left { animation: pan-left 2.4s ease-in-out infinite; }
+  .scale-svg .pan-right { animation: pan-right 2.4s ease-in-out infinite; }
+  @keyframes beam-tilt {
+    0%, 50%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-6deg); }
+    75% { transform: rotate(6deg); }
+  }
+  @keyframes pan-left {
+    0%, 50%, 100% { transform: translateY(0); }
+    25% { transform: translateY(6px); }
+    75% { transform: translateY(-6px); }
+  }
+  @keyframes pan-right {
+    0%, 50%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-6px); }
+    75% { transform: translateY(6px); }
+  }
+
+  /* Standard: compliance sync ring */
+  .sync { display: flex; align-items: center; gap: 16px; }
+  .ring-svg { width: 104px; height: 104px; }
+  .ring-track { fill: none; stroke: var(--border-strong); stroke-width: 7; }
+  .ring-arc {
+    fill: none;
+    stroke: var(--success);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 70 207;
+    transform-box: view-box;
+    transform-origin: 60px 60px;
+    transform: rotate(-90deg);
+    animation: ring-spin 1.2s linear infinite;
+  }
+  @keyframes ring-spin {
+    from { transform: rotate(-90deg); }
+    to { transform: rotate(270deg); }
+  }
+  .ring-label { fill: var(--white); font: 700 16px var(--font-ui); text-anchor: middle; }
+  .ring-sub { fill: var(--muted); font: 600 9px var(--font-ui); letter-spacing: 1px; text-anchor: middle; }
+  .sync-status { font-size: 13px; color: var(--muted); min-width: 130px; }
+  .demo.is-running .sync-status { color: var(--success); }
+
+  /* Pro: dashboard matrix */
+  .matrix {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+  }
+  .matrix span {
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: #5f7397;
+    background: var(--surface-2);
+    border-radius: 3px;
+    transition: background 120ms, color 120ms;
+  }
+  .matrix span.is-lit { background: rgba(56, 201, 255, 0.35); color: var(--white); }
+
+  /* ---------- Pricing ---------- */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+  .plan {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 6;
+    row-gap: 0;
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @supports not (grid-template-rows: subgrid) {
+    .plan { display: flex; flex-direction: column; grid-row: auto; }
+    .plan-features { flex: 1 1 auto; }
+  }
+  .plan.is-featured { border-color: var(--gold-deep); box-shadow: 0 0 0 1px rgba(216, 178, 90, 0.3); }
+  .plan-head { padding: 16px 16px 8px; }
+  .plan-name { font-size: 16px; }
+  .plan-edition { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+  .plan-badge-slot { padding: 0 16px 10px; min-height: 34px; display: flex; align-items: center; }
+  .plan-badge {
+    display: inline-block;
+    max-width: 100%;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .badge-lifetime { background: linear-gradient(90deg, var(--gold-deep), var(--gold-soft)); color: #2a1c03; }
+  .badge-popular { background: rgba(56, 201, 255, 0.14); color: var(--neon); border: 1px solid rgba(56, 201, 255, 0.4); }
+  .badge-mobile { background: rgba(159, 176, 204, 0.14); color: #d3dcea; border: 1px solid var(--border-strong); }
+  .plan-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .plan-row-label { font-size: 12.5px; color: var(--muted); }
+  .plan-row-value { font-size: 18px; font-weight: 700; white-space: nowrap; }
+  .plan-row-value.is-muted { font-size: 13.5px; font-weight: 600; color: var(--muted); }
+  .plan-features {
+    margin: 0;
+    padding: 12px 16px 4px 32px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  .plan-features li { margin-bottom: 5px; }
+  .plan-cta { padding: 12px 16px 16px; align-self: end; }
+  .plan-cta .btn { width: 100%; }
+  .note { margin-top: 18px; font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Partner network ---------- */
+  .commission-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .commission {
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius);
+  }
+  .commission-label { font-size: 16px; font-weight: 500; color: var(--gold-soft); }
+  .commission p { margin-top: 6px; font-size: 13.5px; color: var(--muted); }
+  .steps { counter-reset: step; list-style: none; margin: 0; padding: 0; }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 16px 18px 16px 58px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .steps li + li { margin-top: 10px; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 18px;
+    top: 16px;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--neon);
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+  }
+  .steps strong { display: block; font-weight: 600; }
+  .steps span { font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- Contact ---------- */
+  .contact-item { margin-top: 6px; font-size: 14.5px; }
+  .contact-item a { color: var(--neon); }
+  .hotline-list { list-style: none; margin: 6px 0 0; padding: 0; }
+  .hotline-list li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .hotline-list li:last-child { border-bottom: 0; }
+  .hotline-list .hl-label { display: block; font-size: 12.5px; color: var(--muted); }
+  address { font-style: normal; }
+
+  /* ---------- Footer ---------- */
+  .site-footer { border-top: 1px solid var(--border); background: var(--bg-2); }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    .grid-3, .product-grid, .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .grid-3, .grid-2, .product-grid, .tier-grid, .commission-grid { grid-template-columns: minmax(0, 1fr); }
+    .hero { padding: 22px; }
+    .hero h2 { font-size: calc(23px - 2pt); }
+    .page-head h2 { font-size: calc(22px - 2pt); }
+    .support-badge { white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page.is-entering { animation: none; }
   }
 </style>
 </head>
+<body>
 
-<body class="bg-slate-950 text-slate-200 font-sans leading-relaxed">
-
-<!-- ================= AUTHORSHIP BADGE ================= -->
-<div class="border-b border-slate-800/80 bg-slate-950">
-  <div class="mx-auto max-w-7xl px-4 py-2 flex justify-center">
-    <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-4 py-1 text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.25em]">
-      A Creation of Srijee Creations
-    </span>
+<div class="splash" id="splash" role="status" aria-label="Loading BizPulse">
+  <div class="splash-box">
+    <div class="logo">BIZPULSE</div>
+    <p class="tagline">A Creation of Srijee Creations</p>
+    <div class="splash-progress"><span></span></div>
   </div>
 </div>
 
-<!-- ================= HEADER / NAV ================= -->
-<header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur-md">
-  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4" aria-label="Main">
-    <a href="#top" class="text-2xl font-black tracking-tight" aria-label="BizPulse home">
-      <span class="text-white">Biz</span><span class="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">Pulse</span>
-    </a>
-
-    <ul class="hidden md:flex items-center gap-1 text-sm font-medium">
-      <li><a href="#pricing"  class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Editions &amp; Pricing</a></li>
-      <li><a href="#referral" class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Referral Rewards</a></li>
-      <li><a href="#download" class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Download</a></li>
-      <li><a href="#contact"  class="rounded-md px-3 py-2 text-slate-400 transition hover:bg-slate-900 hover:text-white">Contact Us</a></li>
-    </ul>
-
-    <div class="flex items-center gap-2">
-      <a href="#download" class="hidden sm:inline-flex items-center gap-2 rounded-lg border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-4 py-2 text-sm font-bold transition hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)]">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3V5.5Zm0 13 7.5 1.1v-7H3v5.9Zm8.4 1.2L21 21v-8.4h-9.6v7.1Zm0-15.4v7.2H21V3l-9.6 1.3Z"/></svg>
-        Download for Windows
-      </a>
-      <button id="menuBtn" type="button" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-300 transition hover:border-sky-400 hover:text-white"
-              aria-controls="mobileTray" aria-expanded="false" aria-label="Open menu">
-        <svg id="iconOpen" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        <svg id="iconClose" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <h1 class="logo"><a href="#home" data-tab-link="home">BIZPULSE</a></h1>
+      <p class="tagline">A Creation of Srijee Creations</p>
+      <span class="brand-line" aria-hidden="true"></span>
     </div>
-  </nav>
-
-  <!-- Mobile tray -->
-  <div id="mobileTray" class="md:hidden">
-    <div>
-      <ul class="flex flex-col gap-1 border-t border-slate-800 px-4 py-3 text-base font-medium">
-        <li><a href="#pricing"  class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Editions &amp; Pricing</a></li>
-        <li><a href="#referral" class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Referral Rewards</a></li>
-        <li><a href="#download" class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Download</a></li>
-        <li><a href="#contact"  class="mobile-link block rounded-lg px-3 py-3 text-slate-300 hover:bg-slate-900 hover:text-white">Contact Us</a></li>
-        <li class="pt-2"><a href="#download" class="mobile-link block rounded-lg border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-3 text-center font-bold hover:bg-white">Download for Windows</a></li>
-      </ul>
-    </div>
+    <div class="support-badge">Support: 10 AM – 6 PM, Monday to Saturday</div>
   </div>
+  <nav class="tabbar" role="tablist" aria-label="Site sections">
+    <button class="tab" type="button" role="tab" id="tab-home" aria-controls="page-home" aria-selected="true" data-tab-link="home">Home</button>
+    <button class="tab" type="button" role="tab" id="tab-products" aria-controls="page-products" aria-selected="false" tabindex="-1" data-tab-link="products">Products &amp; Animations</button>
+    <button class="tab" type="button" role="tab" id="tab-pricing" aria-controls="page-pricing" aria-selected="false" tabindex="-1" data-tab-link="pricing">Pricing &amp; Download</button>
+    <button class="tab" type="button" role="tab" id="tab-partners" aria-controls="page-partners" aria-selected="false" tabindex="-1" data-tab-link="partners">Partner Network</button>
+    <button class="tab" type="button" role="tab" id="tab-contact" aria-controls="page-contact" aria-selected="false" tabindex="-1" data-tab-link="contact">Contact</button>
+  </nav>
 </header>
 
-<main id="top">
+<main>
 
-<!-- ================= HERO ================= -->
-<section class="relative overflow-hidden border-b border-slate-800">
-  <div class="pointer-events-none absolute inset-0 grid-bg" aria-hidden="true"></div>
-  <div class="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[900px] max-w-full -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" aria-hidden="true"></div>
-
-  <div class="relative mx-auto max-w-5xl px-4 pb-20 pt-16 text-center sm:pt-24">
-    <!-- Wordmark + ECG -->
-    <div class="mx-auto inline-block rounded-2xl border border-sky-400/25 bg-slate-900/40 px-6 pb-4 pt-6 shadow-[0_30px_80px_-30px_rgba(56,189,248,.45)] sm:px-12 sm:pt-8">
-      <h1 class="bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-6xl font-black tracking-tight text-transparent sm:text-8xl">
-        BizPulse
-      </h1>
-      <svg class="mt-2 w-full" viewBox="0 0 520 70" fill="none" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="ecgGlow" x="-10%" y="-50%" width="120%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <linearGradient id="ecgFade" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#38bdf8" stop-opacity="0"/>
-            <stop offset=".15" stop-color="#38bdf8" stop-opacity=".35"/>
-            <stop offset=".85" stop-color="#38bdf8" stop-opacity=".35"/>
-            <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <!-- static baseline -->
-        <path d="M4 44 C 70 50, 140 48, 200 42 L 232 42 L 244 18 L 258 62 L 270 6 L 284 56 L 294 42 L 330 42 C 390 38, 450 30, 516 22"
-              stroke="url(#ecgFade)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- live trace -->
-        <path class="ecg-trace" d="M4 44 C 70 50, 140 48, 200 42 L 232 42 L 244 18 L 258 62 L 270 6 L 284 56 L 294 42 L 330 42 C 390 38, 450 30, 516 22"
-              stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#ecgGlow)"/>
-        <circle class="ecg-dot" cx="516" cy="22" r="4.5" fill="#e0f2fe" filter="url(#ecgGlow)"/>
-      </svg>
+  <!-- ===================== TAB 1: HOME ===================== -->
+  <section class="page" id="page-home" role="tabpanel" aria-labelledby="tab-home">
+    <div class="hero">
+      <p class="eyebrow">Srijee Creations · Siliguri, West Bengal</p>
+      <h2>Software built with precision for the way Indian businesses work</h2>
+      <p>Srijee Creations designs and builds business software, web and app products, and premium digital publications. Our flagship, BizPulse, brings GST-ready accounting to shopkeepers, growing companies and chartered accountants through one consistent, keyboard-first experience.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#products" data-tab-link="products">Explore BizPulse editions</a>
+        <a class="btn btn-outline" href="#pricing" data-tab-link="pricing">View pricing &amp; downloads</a>
+      </div>
     </div>
 
-    <div class="text-center max-w-4xl mx-auto px-4 mt-12">
-      <!-- Main Tagline -->
-      <h2 class="whitespace-nowrap text-[3.4vw] sm:text-2xl md:text-3xl font-bold tracking-wide sm:tracking-widest text-sky-400 uppercase mb-6">
-        &bull; Economical &bull; Accurate &bull; Efficient
-      </h2>
-
-      <!-- Sub-Tagline with explicit line break -->
-      <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-        Honest pricing. Accurate numbers. Total peace of mind.<br class="hidden md:inline">
-        Keyboard-driven accounting, GST compliance, and inventory built for the muscle memory of accountants and Chartered Accountants.
-      </p>
-    </div>
-
-    <!-- CTAs -->
-    <div id="download" class="mt-10 flex scroll-mt-28 flex-col items-center justify-center gap-3 sm:flex-row">
-      <a href="https://mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe" download
-         class="inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100"
-         aria-label="Download BizPulse for Windows (.exe, 94 MB)">Download</a>
-      <a href="#pricing" class="inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100">Compare Editions</a>
-    </div>
-    <p class="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-500">
-      <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Stable release v1.0.0</span>
-      <span class="font-mono text-slate-400">BizPulse_Setup_v1.0.0.exe</span>
-      <span>94 MB</span>
-      <span>Windows 10 / 11 (64-bit)</span>
-    </p>
-  </div>
-</section>
-
-<!-- ================= EDITIONS & PRICING ================= -->
-<section id="pricing" class="scroll-mt-20 border-b border-slate-800 py-20">
-  <div class="mx-auto max-w-7xl px-4">
-    <div class="mx-auto max-w-2xl text-center">
-      <p class="text-xs font-bold uppercase tracking-[0.25em] text-sky-400">Editions &amp; Pricing</p>
-      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Pick the edition that fits your desk.</h2>
-      <p class="mt-3 text-slate-400">Every edition shares one ledger, so you upgrade without migrating a single voucher. Prices include 18% GST.</p>
-    </div>
-
-    <!-- Desktop comparison table -->
-    <div class="mt-12 hidden overflow-x-auto rounded-2xl border border-slate-800 xl:block">
-      <table class="w-full table-fixed border-collapse text-sm" id="cmpTable"></table>
-    </div>
-
-    <!-- Mobile / tablet cards -->
-    <div class="mt-12 space-y-12 xl:hidden" id="cmpCards"></div>
-  </div>
-</section>
-
-<!-- ================= REFERRAL ================= -->
-<section id="referral" class="relative scroll-mt-20 overflow-hidden border-b border-slate-800 py-20">
-  <div class="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" aria-hidden="true"></div>
-  <div class="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-sky-500/15 blur-3xl" aria-hidden="true"></div>
-
-  <div class="relative mx-auto max-w-6xl px-4">
-    <div class="mx-auto max-w-2xl text-center">
-      <p class="text-xs font-bold uppercase tracking-[0.25em] text-indigo-300">Partner &amp; Referral Program</p>
-      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Introduce a colleague. Earn real cash.</h2>
-      <p class="mt-3 text-slate-400">Refer fellow business owners, accountants and CAs. Rewards apply across every BizPulse edition.</p>
-    </div>
-
-    <div class="mt-12 grid gap-6 md:grid-cols-2">
-      <article class="relative rounded-2xl border border-indigo-400/30 bg-gradient-to-br from-indigo-500/10 via-slate-900 to-slate-900 p-8 shadow-[0_0_60px_-20px_rgba(99,102,241,.6)] transition hover:border-indigo-300/60">
-        <span class="inline-block rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest">Your first referral</span>
-        <p class="mt-5 text-6xl font-black tracking-tight text-white">15<span class="text-indigo-300">%</span></p>
-        <p class="mt-1 text-lg font-semibold text-white">Cashback, credited automatically</p>
-        <p class="mt-3 text-slate-400">Introduce your very first referral within 30 days of your registration and we credit 15% cashback to you automatically.</p>
+    <div class="grid-3">
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+        </div>
+        <h3>Our Vision</h3>
+        <p>We believe accurate accounts should be within reach of every business, from a single-counter shop to a multi-client CA practice.</p>
+        <p>Our aim is software that is fast to learn, exact in its numbers and fair in its pricing, built and supported from Siliguri.</p>
       </article>
-
-      <article class="relative rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-500/10 via-slate-900 to-slate-900 p-8 shadow-[0_0_60px_-20px_rgba(56,189,248,.55)] transition hover:border-sky-300/60">
-        <span class="inline-block rounded-full border border-sky-200 bg-[#e0f2fe] text-[#0369a1] px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest">Every referral after</span>
-        <p class="mt-5 text-6xl font-black tracking-tight text-white">10<span class="text-sky-300">%</span></p>
-        <p class="mt-1 text-lg font-semibold text-white">Cash reward, every time</p>
-        <p class="mt-3 text-slate-400">Earn 10% cash on every subsequent referral you introduce, across all product categories. No cap on introductions.</p>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+        </div>
+        <h3>Web &amp; App Software Works</h3>
+        <p>BizPulse runs as a desktop application for daily accounting and as a mobile edition for billing on the move, sharing one chart of accounts across every edition.</p>
+        <p>Upgrading between editions unlocks features without any data migration.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6M9 11h6"/></svg>
+        </div>
+        <h3>Premium Digital E-books</h3>
+        <p>Alongside our software, Srijee Creations publishes premium digital e-books: carefully edited, well designed titles produced with the same attention to detail as our products.</p>
+        <p>For current titles and availability, write to us from the Contact page.</p>
       </article>
     </div>
+  </section>
 
-    <div class="mt-8 text-center">
-      <a href="#contact" data-prefill="I'd like to join the BizPulse referral program." class="prefill inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100">Join the Referral Program</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TALK TO US ================= -->
-<section id="contact" class="scroll-mt-20 py-20">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-5">
-    <div class="lg:col-span-2">
-      <p class="text-xs font-bold uppercase tracking-[0.25em] text-sky-400">Talk To Us</p>
-      <h2 class="mt-3 text-[18px] font-bold text-white sm:text-[21.6px]">Message our team leads directly.</h2>
-      <p class="mt-4 text-slate-400">Running a CA firm or a multi-branch business? Tell us what you need and we'll recommend the right edition and seat plan.</p>
-
-      <dl class="mt-8 space-y-4 text-sm">
-        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-          <dt class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Office</dt>
-          <dd class="mt-1 text-slate-300">Srijee Creations, South Babupara, Siliguri, West Bengal</dd>
-        </div>
-        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-          <dt class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Support Hours</dt>
-          <dd class="mt-1 text-slate-300">10:00 AM – 6:00 PM, Monday to Saturday</dd>
-        </div>
-      </dl>
+  <!-- ===================== TAB 2: PRODUCTS ===================== -->
+  <section class="page" id="page-products" role="tabpanel" aria-labelledby="tab-products" hidden>
+    <div class="page-head">
+      <p class="eyebrow">Products &amp; Animations</p>
+      <h2>Our Five Editions that meets your need</h2>
+      <p>Every edition shares the same accounting core. Press <strong>Play animation</strong> on any edition to see its signature capability in motion.</p>
     </div>
 
-    <form id="leadForm" class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 lg:col-span-3" novalidate>
-      <div class="grid gap-5 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          <label for="fName" class="block text-sm font-semibold text-slate-200">Full Legal Name</label>
-          <input id="fName" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100"
-                 class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-                 placeholder="As on your PAN / GST registration">
+    <div class="product-grid">
+      <article class="product" data-product="pocket">
+        <div class="product-body">
+          <h3>BizPulse Pocket</h3>
+          <p class="product-kicker">Mobile edition · Voice billing</p>
+          <p>Raise GST sales invoices from your phone with voice billing and fast English text entry.</p>
         </div>
-        <div>
-          <label for="fMobile" class="block text-sm font-semibold text-slate-200">Mobile Number</label>
-          <div class="mt-2 flex rounded-lg border border-slate-700 bg-slate-950 transition focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-400/30">
-            <span class="flex items-center border-r border-slate-700 px-3 text-slate-400">+91</span>
-            <input id="fMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required pattern="[6-9][0-9]{9}" maxlength="10"
-                   class="w-full rounded-r-lg bg-transparent px-4 py-3 text-white placeholder-slate-500 focus:outline-none" placeholder="98XXXXXXXX">
+        <div class="demo" aria-hidden="true">
+          <span class="mic-dot"></span>
+          <div class="wave">
+            <span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span><span class="anim"></span>
           </div>
         </div>
-        <div>
-          <label for="fEmail" class="block text-sm font-semibold text-slate-200">Email Address</label>
-          <input id="fEmail" name="email" type="email" autocomplete="email" required maxlength="150"
-                 class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-                 placeholder="you@yourfirm.in">
+        <div class="product-body">
+          <ul>
+            <li>Voice-assisted sales entry</li>
+            <li>Counts as one licence seat</li>
+          </ul>
         </div>
-        <div class="sm:col-span-2">
-          <label for="fMsg" class="block text-sm font-semibold text-slate-200">Message</label>
-          <textarea id="fMsg" name="message" rows="5" required minlength="10" maxlength="2000"
-                    class="mt-2 w-full resize-y rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-                    placeholder="Tell us about your business, number of users and the edition you're considering."></textarea>
+        <div class="product-foot">
+          <button class="btn btn-outline demo-toggle" type="button" aria-pressed="false">Play animation</button>
         </div>
-        <!-- honeypot: bots fill this, humans never see it -->
-        <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
-      </div>
+      </article>
 
-      <p id="formStatus" class="mt-4 hidden rounded-lg px-4 py-3 text-sm" role="status" aria-live="polite"></p>
+      <article class="product" data-product="billing">
+        <div class="product-body">
+          <h3>BizPulse Billing</h3>
+          <p class="product-kicker">Desktop · Sales invoicing</p>
+          <p>Keyboard-driven GST sales invoicing for counters that need speed above all else.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <ul class="ticker"><li class="ticker-idle">Invoice feed idle</li></ul>
+        </div>
+        <div class="product-body">
+          <ul>
+            <li>Outward GST sales invoices</li>
+            <li>Series format SRJ/26-27/0001</li>
+          </ul>
+        </div>
+        <div class="product-foot">
+          <button class="btn btn-outline demo-toggle" type="button" aria-pressed="false">Play animation</button>
+        </div>
+      </article>
 
-      <button type="submit" id="submitBtn"
-              class="mt-6 inline-flex rounded-lg border border-sky-200 bg-[#e0f2fe] px-5 py-2 text-base font-extrabold uppercase tracking-wider text-[#0369a1] transition hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(56,189,248,.6)] active:scale-100 disabled:cursor-wait disabled:opacity-60">Send Message</button>
-    </form>
-  </div>
-</section>
-</main>
+      <article class="product" data-product="lite">
+        <div class="product-body">
+          <h3>BizPulse Lite</h3>
+          <p class="product-kicker">Desktop · Bookkeeping</p>
+          <p>Complete double-entry bookkeeping with every voucher type and inventory tracking.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <svg class="scale-svg" viewBox="0 0 200 120">
+            <line x1="100" y1="30" x2="100" y2="104"/>
+            <rect class="base" x="78" y="104" width="44" height="6" rx="1"/>
+            <g class="beam anim">
+              <line x1="40" y1="30" x2="160" y2="30"/>
+              <circle cx="100" cy="30" r="4"/>
+            </g>
+            <g class="pan pan-left anim">
+              <line x1="40" y1="30" x2="28" y2="72"/>
+              <line x1="40" y1="30" x2="52" y2="72"/>
+              <path d="M22 72 H58 A18 9 0 0 1 22 72 Z"/>
+              <text x="40" y="69">Dr</text>
+            </g>
+            <g class="pan pan-right anim">
+              <line x1="160" y1="30" x2="148" y2="72"/>
+              <line x1="160" y1="30" x2="172" y2="72"/>
+              <path d="M142 72 H178 A18 9 0 0 1 142 72 Z"/>
+              <text x="160" y="69">Cr</text>
+            </g>
+          </svg>
+        </div>
+        <div class="product-body">
+          <ul>
+            <li>All voucher types</li>
+            <li>Inventory management</li>
+          </ul>
+        </div>
+        <div class="product-foot">
+          <button class="btn btn-outline demo-toggle" type="button" aria-pressed="false">Play animation</button>
+        </div>
+      </article>
 
-<footer class="border-t border-slate-800 py-10 text-center text-sm text-slate-500">
-  <p class="text-lg font-black tracking-tight"><span class="text-white">Biz</span><span class="text-sky-400">Pulse</span></p>
-  <p class="mt-2 text-xs font-bold uppercase tracking-[0.25em] text-sky-400">A Creation of Srijee Creations</p>
-  <p class="mt-3">© <span id="yr">2026</span> Srijee Creations. All rights reserved.</p>
-</footer>
+      <article class="product" data-product="standard">
+        <div class="product-body">
+          <h3>BizPulse Standard</h3>
+          <p class="product-kicker">Desktop · Tax compliance</p>
+          <p>Adds GST compliance, TDS/TCS and income tax logs to full bookkeeping.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <div class="sync">
+            <svg class="ring-svg" viewBox="0 0 120 120">
+              <circle class="ring-track" cx="60" cy="60" r="44"/>
+              <circle class="ring-arc anim" cx="60" cy="60" r="44"/>
+              <text class="ring-label" x="60" y="60">GST</text>
+              <text class="ring-sub" x="60" y="76">SYNC</text>
+            </svg>
+            <p class="sync-status">Compliance sync idle</p>
+          </div>
+        </div>
+        <div class="product-body">
+          <ul>
+            <li>GST, TDS/TCS &amp; income tax logs</li>
+            <li>Manual bank check-off</li>
+          </ul>
+        </div>
+        <div class="product-foot">
+          <button class="btn btn-outline demo-toggle" type="button" aria-pressed="false">Play animation</button>
+        </div>
+      </article>
 
-<!-- ================= PAYMENT MODAL ================= -->
-<div id="payModal" class="hidden-modal fixed inset-0 z-50 flex items-end justify-center bg-slate-950/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
-     role="dialog" aria-modal="true" aria-labelledby="payTitle" aria-hidden="true">
-  <div class="panel max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-slate-700 bg-slate-900 shadow-2xl sm:rounded-2xl">
-    <div class="flex items-start justify-between gap-4 border-b border-slate-800 p-6">
-      <div>
-        <p class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Secure checkout</p>
-        <h3 id="payTitle" class="mt-1 text-xl font-extrabold text-white">BizPulse</h3>
-        <p id="payPrice" class="mt-1 text-slate-400"></p>
-      </div>
-      <button type="button" id="payClose" class="rounded-lg border border-slate-700 p-2 text-slate-400 transition hover:border-slate-500 hover:text-white" aria-label="Close checkout">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
+      <article class="product" data-product="pro">
+        <div class="product-body">
+          <h3>BizPulse Pro</h3>
+          <p class="product-kicker">Desktop · Full suite for CAs</p>
+          <p>The complete suite for chartered accountants and auditing practices, with unlimited companies.</p>
+        </div>
+        <div class="demo" aria-hidden="true">
+          <div class="matrix"></div>
+        </div>
+        <div class="product-body">
+          <ul>
+            <li>Banking automation &amp; bulk reconciliation</li>
+            <li>Security logs and AI assistance</li>
+          </ul>
+        </div>
+        <div class="product-foot">
+          <button class="btn btn-outline demo-toggle" type="button" aria-pressed="false">Play animation</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== TAB 3: PRICING & DOWNLOAD ===================== -->
+  <section class="page" id="page-pricing" role="tabpanel" aria-labelledby="tab-pricing" hidden>
+    <div class="page-head">
+      <p class="eyebrow">Pricing &amp; Download Matrix</p>
+      <h2>Choose your edition and licence</h2>
+      <p>All prices in INR, inclusive of 18% GST. Renewals are billed yearly; Platinum is a one-time lifetime licence.</p>
     </div>
 
-    <form id="payForm" class="p-6" novalidate>
-      <fieldset>
-        <legend class="text-sm font-semibold text-slate-200">Choose how you'd like to pay</legend>
-        <div class="mt-3 grid grid-cols-3 gap-2" role="radiogroup">
-          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
-            <input type="radio" name="method" value="upi" class="sr-only" checked> UPI
-          </label>
-          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
-            <input type="radio" name="method" value="netbanking" class="sr-only"> Net Banking
-          </label>
-          <label class="cursor-pointer rounded-lg border border-slate-700 p-3 text-center text-sm font-semibold transition hover:border-sky-400 has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10 has-[:checked]:text-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-400">
-            <input type="radio" name="method" value="card" class="sr-only"> Card
-          </label>
-        </div>
-      </fieldset>
+    <h3 class="section-title">Essentials <span>Single company · Single user</span></h3>
+    <div class="tier-grid">
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">BizPulse Pocket</h4><p class="plan-edition">Mobile app · Voice Express</p></div>
+        <div class="plan-badge-slot"><span class="plan-badge badge-mobile">MOBILE</span></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹199</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹99</span></div>
+        <ul class="plan-features"><li>Voice-assisted sales entry</li><li>Counts as one seat</li></ul>
+        <div class="plan-cta"><a class="btn btn-outline" data-download="pocket" href="https://mybizpulse.in">Download</a></div>
+      </article>
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">BizPulse Billing</h4><p class="plan-edition">Desktop · Sales entry</p></div>
+        <div class="plan-badge-slot"></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹499</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹249</span></div>
+        <ul class="plan-features"><li>Outward GST sales invoices</li><li>Keyboard-driven entry</li></ul>
+        <div class="plan-cta"><a class="btn btn-outline" data-download="billing" href="https://mybizpulse.in">Download</a></div>
+      </article>
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">BizPulse Lite</h4><p class="plan-edition">Desktop · Bookkeeping</p></div>
+        <div class="plan-badge-slot"></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹1,499</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹749</span></div>
+        <ul class="plan-features"><li>All voucher types</li><li>Inventory management</li></ul>
+        <div class="plan-cta"><a class="btn btn-outline" data-download="lite" href="https://mybizpulse.in">Download</a></div>
+      </article>
+    </div>
 
-      <!-- UPI -->
-      <div data-pane="upi" class="mt-5">
-        <label for="upiId" class="block text-sm font-semibold text-slate-200">UPI ID <span class="font-normal text-slate-500">(optional)</span></label>
-        <input id="upiId" type="text" autocomplete="off" placeholder="yourname@okhdfcbank"
-               class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30">
-        <p class="mt-2 text-xs text-slate-500">Works with Google Pay, PhonePe, Paytm, BHIM and every UPI app. Leave blank to scan a QR code instead.</p>
+    <h3 class="section-title">BizPulse Standard <span>GST compliance · TDS/TCS · Income tax logs</span></h3>
+    <div class="tier-grid">
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">Standard Silver</h4><p class="plan-edition">Single user · 1 seat</p></div>
+        <div class="plan-badge-slot"></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹1,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹999</span></div>
+        <ul class="plan-features"><li>GSTR-ready reports</li><li>Manual bank check-off</li></ul>
+        <div class="plan-cta"><a class="btn btn-outline" data-download="standard" href="https://mybizpulse.in">Download</a></div>
+      </article>
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">Standard Gold</h4><p class="plan-edition">Multi-user · Up to 5 seats</p></div>
+        <div class="plan-badge-slot"><span class="plan-badge badge-popular">MOST POPULAR</span></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹8,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹4,499</span></div>
+        <ul class="plan-features"><li>Everything in Silver</li><li>5 concurrent devices</li></ul>
+        <div class="plan-cta"><a class="btn btn-primary" data-download="standard" href="https://mybizpulse.in">Download</a></div>
+      </article>
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">Standard Platinum</h4><p class="plan-edition">Multi-user · One-time</p></div>
+        <div class="plan-badge-slot"><span class="plan-badge badge-lifetime">LIFETIME LICENSE</span></div>
+        <div class="plan-row"><span class="plan-row-label">One-time</span><span class="plan-row-value">₹17,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value is-muted">Not required</span></div>
+        <ul class="plan-features"><li>Everything in Gold</li><li>Permanent licence key</li></ul>
+        <div class="plan-cta"><a class="btn btn-gold" data-download="standard" href="https://mybizpulse.in">Download</a></div>
+      </article>
+    </div>
+
+    <h3 class="section-title">BizPulse Pro Corporate <span>Full suite for CAs · Unlimited companies</span></h3>
+    <div class="tier-grid">
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">Pro Silver</h4><p class="plan-edition">Single user · 1 seat</p></div>
+        <div class="plan-badge-slot"></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹6,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹2,999</span></div>
+        <ul class="plan-features"><li>Banking automation</li><li>Security &amp; audit logs</li></ul>
+        <div class="plan-cta"><a class="btn btn-outline" data-download="pro-silver" href="https://silver.mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe" download="BizPulse_Setup_v1.0.0.exe">Download</a></div>
+      </article>
+      <article class="plan">
+        <div class="plan-head"><h4 class="plan-name">Pro Gold</h4><p class="plan-edition">Multi-user · Up to 5 seats</p></div>
+        <div class="plan-badge-slot"><span class="plan-badge badge-popular">FOR CA FIRMS</span></div>
+        <div class="plan-row"><span class="plan-row-label">First year</span><span class="plan-row-value">₹20,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value">₹8,999</span></div>
+        <ul class="plan-features"><li>Everything in Silver</li><li>Bulk statement reconciliation</li></ul>
+        <div class="plan-cta"><a class="btn btn-primary" data-download="pro-gold" href="https://gold.mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe" download="BizPulse_Setup_v1.0.0.exe">Download</a></div>
+      </article>
+      <article class="plan is-featured">
+        <div class="plan-head"><h4 class="plan-name">Pro Platinum</h4><p class="plan-edition">Multi-user · One-time</p></div>
+        <div class="plan-badge-slot"><span class="plan-badge badge-lifetime">LIFETIME LICENSE</span></div>
+        <div class="plan-row"><span class="plan-row-label">One-time</span><span class="plan-row-value">₹41,999</span></div>
+        <div class="plan-row"><span class="plan-row-label">Renewal / yr</span><span class="plan-row-value is-muted">Not required</span></div>
+        <ul class="plan-features"><li>Everything in Gold</li><li>Permanent licence key</li></ul>
+        <div class="plan-cta"><a class="btn btn-gold" data-download="pro-platinum" href="https://mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe" download="BizPulse_Setup_v1.0.0.exe">Download</a></div>
+      </article>
+    </div>
+
+    <p class="note">Payments via UPI, Net Banking and Indian debit/credit cards. One licence key per licence, retained across renewals.</p>
+  </section>
+
+  <!-- ===================== TAB 4: PARTNER NETWORK ===================== -->
+  <section class="page" id="page-partners" role="tabpanel" aria-labelledby="tab-partners" hidden>
+    <div class="page-head">
+      <p class="eyebrow">Partner Network</p>
+      <h2>Join our Referral Program</h2>
+      <p>Introduce BizPulse to the businesses you advise and earn a share of every licence they purchase. Your clients get clean, audit-ready books; you get a dependable partner and a recurring return.</p>
+    </div>
+
+    <div class="commission-grid">
+      <div class="commission">
+        <p class="commission-label">15% initial cashback allocation</p>
+        <p>Credited on your first successful referral made within 30 days.</p>
       </div>
-
-      <!-- Net Banking -->
-      <div data-pane="netbanking" class="mt-5 hidden">
-        <label for="bankSel" class="block text-sm font-semibold text-slate-200">Select your bank</label>
-        <select id="bankSel" class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30">
-          <option value="">— Choose a bank —</option>
-          <option>State Bank of India</option>
-          <option>HDFC Bank</option>
-          <option>ICICI Bank</option>
-          <option>Axis Bank</option>
-          <option>Kotak Mahindra Bank</option>
-          <option>Punjab National Bank</option>
-          <option>Bank of Baroda</option>
-          <option>Canara Bank</option>
-          <option>Union Bank of India</option>
-          <option>Bank of India</option>
-          <option>Indian Bank</option>
-          <option>Central Bank of India</option>
-          <option>IndusInd Bank</option>
-          <option>IDFC FIRST Bank</option>
-          <option>Yes Bank</option>
-          <option>Federal Bank</option>
-          <option>UCO Bank</option>
-        </select>
+      <div class="commission">
+        <p class="commission-label">10% recurring renewal commission return</p>
+        <p>Credited on each additional successful referral after the first.</p>
       </div>
+    </div>
+    <p class="note">Both rates are calculated as a percentage of the total amount paid by the referred business.</p>
 
-      <!-- Card -->
-      <div data-pane="card" class="mt-5 hidden">
-        <p class="text-sm font-semibold text-slate-200">Card type</p>
-        <div class="mt-2 flex gap-3">
-          <label class="flex flex-1 cursor-pointer items-center gap-2 rounded-lg border border-slate-700 px-4 py-3 text-sm has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10">
-            <input type="radio" name="cardType" value="debit" class="accent-sky-400" checked> Debit Card
-          </label>
-          <label class="flex flex-1 cursor-pointer items-center gap-2 rounded-lg border border-slate-700 px-4 py-3 text-sm has-[:checked]:border-sky-400 has-[:checked]:bg-sky-400/10">
-            <input type="radio" name="cardType" value="credit" class="accent-sky-400"> Credit Card
-          </label>
-        </div>
-        <p class="mt-3 text-xs text-slate-500">RuPay, Visa and Mastercard accepted. You enter card details only on our payment partner's secure, RBI-compliant page — this website never sees your card number.</p>
-      </div>
+    <h3 class="section-title">How it works</h3>
+    <ol class="steps">
+      <li><strong>Register as a partner</strong><span>Write to us with your name, firm and membership details to receive your partner reference.</span></li>
+      <li><strong>Introduce your clients</strong><span>Share BizPulse with the businesses you advise; they quote your reference when purchasing.</span></li>
+      <li><strong>Receive your cashback</strong><span>Commission is credited once the referred business completes its payment.</span></li>
+    </ol>
+    <div class="actions">
+      <a class="btn btn-gold" href="mailto:info@srijeecreations.com?subject=BizPulse%20Partner%20Network%20registration">Join the Partner Network</a>
+    </div>
+  </section>
 
-      <p id="payStatus" class="mt-5 hidden rounded-lg border border-sky-400/30 bg-sky-400/5 px-4 py-3 text-sm text-sky-100" role="status" aria-live="polite"></p>
+  <!-- ===================== TAB 5: CONTACT ===================== -->
+  <section class="page" id="page-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
+    <div class="page-head">
+      <p class="eyebrow">Contact</p>
+      <h2>Talk to Srijee Creations</h2>
+      <p>Sales, licence validation and support are handled by our team in Siliguri during business hours.</p>
+    </div>
 
-      <button type="submit" id="payBtn"
-              class="mt-6 w-full rounded-lg bg-sky-400 px-6 py-3.5 text-sm font-extrabold uppercase tracking-widest text-slate-950 transition hover:scale-[1.02] hover:bg-sky-300 active:scale-100">
-        Proceed to Pay
-      </button>
-      <p class="mt-3 text-center text-xs text-slate-500">Prices include 18% GST · Indian payment methods only</p>
-    </form>
+    <div class="grid-3">
+      <article class="card">
+        <h3>Business Email</h3>
+        <p class="contact-item"><a href="mailto:info@srijeecreations.com">info@srijeecreations.com</a></p>
+        <p>For sales, partnerships, e-books and general enquiries.</p>
+      </article>
+      <article class="card">
+        <h3>Validation Hotlines</h3>
+        <ul class="hotline-list" id="hotline-list"></ul>
+      </article>
+      <article class="card">
+        <h3>Head Office</h3>
+        <address class="contact-item">Srijee Creations<br>South Babupara, Siliguri<br>West Bengal, India</address>
+        <p>Support: 10 AM – 6 PM, Monday to Saturday</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© <span id="year">2026</span> Srijee Creations. All rights reserved.</span>
+    <span>South Babupara, Siliguri, West Bengal</span>
   </div>
-</div>
+</footer>
 
 <script>
-/* =====================================================================
-   CONFIG — edit prices and endpoints here only.
-   All prices in ₹, GST-inclusive. renewal: null = one-time licence.
-   ===================================================================== */
-const CONFIG = {
-  formEndpoint: "contact.php",   // server script that receives the "Talk To Us" form
-  checkoutLive: false            // set true once the payment gateway is wired in startCheckout()
-};
+(() => {
+  "use strict";
 
-const GROUPS = [
-  { id: "starter",  label: "Starter Editions" },
-  { id: "standard", label: "BizPulse Standard" },
-  { id: "pro",      label: "BizPulse Pro" }
-];
+  /* ---------- Site configuration ---------- */
+  const DOWNLOADS = {
+    pocket: "https://mybizpulse.in",
+    billing: "https://mybizpulse.in",
+    lite: "https://mybizpulse.in",
+    standard: "https://mybizpulse.in",
+    "pro-silver": "https://silver.mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe",
+    "pro-gold": "https://gold.mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe",
+    "pro-platinum": "https://mybizpulse.in/downloads/BizPulse_Setup_v1.0.0.exe"
+  };
 
-const PLANS = [
-  { id: "voice",    group: "starter",  name: "Voice Express",     tag: "Single User",               price: 199,   renewal: 99,   per: "/ yr",
-    blurb: "Mobile app for fast sales entry on the go." },
-  { id: "billing",  group: "starter",  name: "BizPulse Billing",  tag: "Single User · No Inventory", price: 499,   renewal: 249,  per: "/ yr",
-    blurb: "Desktop sales billing without stock tracking." },
-  { id: "lite",     group: "starter",  name: "BizPulse Lite",     tag: "Single User · Simple Bookkeeping", price: 1499, renewal: 749, per: "/ yr",
-    blurb: "Simple bookkeeping for small shopkeepers." },
-  { id: "stdSilver", group: "standard", name: "Standard Silver",  tag: "Single User · Annual",      price: 1999,  renewal: 999,  per: "/ yr",
-    blurb: "Core accounting with GST compliance." },
-  { id: "stdGold",   group: "standard", name: "Standard Gold",    tag: "Multi User · Annual",       price: 8899,  renewal: 4499, per: "/ yr",
-    blurb: "Standard for your whole accounts team." },
-  { id: "stdPlat",   group: "standard", name: "Standard Platinum", tag: "Multi User · Lifetime",    price: 17999, renewal: null, per: "one-time", platinum: true,
-    blurb: "Standard for your team, paid once." },
-  { id: "proSilver", group: "pro",      name: "Pro Silver",       tag: "Single User · Annual",      price: 6999,  renewal: 2999, per: "/ yr",
-    blurb: "The full suite for one Chartered Accountant." },
-  { id: "proGold",   group: "pro",      name: "Pro Gold",         tag: "Multi User · Annual",       price: 20999, renewal: 8999, per: "/ yr",
-    blurb: "The full suite for CA firms and teams." },
-  { id: "proPlat",   group: "pro",      name: "Pro Platinum",     tag: "Multi User · Lifetime",     price: 41999, renewal: null, per: "one-time", platinum: true,
-    blurb: "The full suite for your firm, paid once." }
-];
-
-/* Comparison rows: one value per plan, in PLANS order.
-   true = included, false = not included, string = shown as text. */
-const FEATURES = [
-  ["Platform",                    ["Mobile", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop", "Desktop"]],
-  ["Users",                       ["Single", "Single", "Single", "Single", "Multi", "Multi", "Single", "Multi", "Multi"]],
-  ["Licence",                     ["Annual", "Annual", "Annual", "Annual", "Annual", "Lifetime", "Annual", "Annual", "Lifetime"]],
-  ["Sales billing & invoicing",   [true, true, true, true, true, true, true, true, true]],
-  ["Bookkeeping",                 [false, false, "Simple", "Full", "Full", "Full", "Full", "Full", "Full"]],
-  ["Inventory & stock",           [false, false, false, true, true, true, true, true, true]],
-  ["GST compliance & returns",    [false, false, false, true, true, true, true, true, true]],
-  ["TDS / TCS",                   [false, false, false, true, true, true, true, true, true]],
-  ["Bank reconciliation",         [false, false, false, "Manual", "Manual", "Manual", "Automated", "Automated", "Automated"]],
-  ["Concurrent multi-user access",[false, false, false, false, true, true, false, true, true]],
-  ["CA audit dashboards & logs",  [false, false, false, false, false, false, true, true, true]],
-  ["Keyboard-driven workflow",    [true, true, true, true, true, true, true, true, true]]
-];
-/* ===================== END OF CONFIG ===================== */
-
-const inr = n => "₹" + n.toLocaleString("en-IN");
-const tick = '<svg class="mx-auto h-5 w-5 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Included"><path d="M5 12.5 10 17 19 7"/></svg>';
-const cross = '<span class="text-slate-600" aria-label="Not included">—</span>';
-const cell = v => v === true ? tick : v === false ? cross : `<span class="text-slate-200">${v}</span>`;
-const buyBtn = p =>
-  `<button type="button" data-plan="${p.id}" class="buy-btn w-full whitespace-nowrap rounded-lg px-2 py-2 text-xs font-extrabold uppercase tracking-wide transition hover:scale-[1.03] active:scale-100 ${p.platinum ? "bg-indigo-300 text-slate-950 hover:bg-indigo-200" : "border border-slate-600 text-white hover:border-sky-400 hover:bg-sky-400/10"}">Buy Now</button>`;
-const priceBlock = (p, big) => `
-  <div class="mt-3 ${big ? "text-3xl" : "text-2xl"} font-black tracking-tight text-white">${inr(p.price)}</div>
-  <div class="whitespace-nowrap text-xs font-medium text-slate-400">${p.per === "one-time" ? (big ? "one-time payment" : "one-time") : "first year"}</div>
-  <div class="mt-1 text-xs leading-snug text-slate-400">${p.renewal
-    ? `Renewal<br><span class="whitespace-nowrap font-semibold text-emerald-400">${inr(p.renewal)} / yr</span>`
-    : `Lifetime<br><span class="whitespace-nowrap font-semibold text-emerald-400">No renewals</span>`}</div>`;
-const platTag = '<span class="inline-block rounded border border-indigo-300/60 bg-indigo-400/15 px-1.5 py-1 text-[9px] font-extrabold uppercase leading-tight tracking-wide text-indigo-200">Lifetime License<br><span class="font-semibold normal-case tracking-normal text-indigo-100">Infinite Corporate Pack</span></span>';
-
-/* ----- Desktop table (xl and up) ----- */
-function renderTable(){
-  const groupRow = GROUPS.map(g => {
-    const n = PLANS.filter(p => p.group === g.id).length;
-    return `<th scope="colgroup" colspan="${n}" class="border-l border-slate-800 bg-slate-900 px-4 py-3 text-center text-[11px] font-extrabold uppercase tracking-[0.2em] text-sky-400">${g.label}</th>`;
-  }).join("");
-  const head = PLANS.map(p => `
-    <th scope="col" class="relative border-l border-slate-800 px-3 py-4 text-left align-top font-normal ${p.platinum ? "bg-indigo-500/[0.08] shadow-[inset_0_0_0_1px_rgba(165,180,252,.45)]" : ""}">
-      <div class="mb-2 h-[54px]">${p.platinum ? '<span class="absolute -top-px left-0 right-0 h-0.5 bg-indigo-300"></span>' + platTag : ""}</div>
-      <div class="min-h-[40px] text-sm font-extrabold leading-snug text-white">${p.name}</div>
-      <div class="mt-1 min-h-[38px] text-[10px] font-bold uppercase leading-tight tracking-wide text-sky-400">${p.tag}</div>
-      ${priceBlock(p, false)}
-      <div class="mt-4">${buyBtn(p)}</div>
-    </th>`).join("");
-  const rows = FEATURES.map(([label, vals], i) => `
-    <tr class="${i % 2 ? "bg-slate-900/30" : ""} transition hover:bg-slate-800/40">
-      <th scope="row" class="px-4 py-3 text-left text-[13px] font-medium text-slate-300">${label}</th>
-      ${vals.map((v, j) => `<td class="border-l border-slate-800 p-3 text-center text-[13px] ${PLANS[j].platinum ? "bg-indigo-500/[0.05]" : ""}">${cell(v)}</td>`).join("")}
-    </tr>`).join("");
-  document.getElementById("cmpTable").innerHTML = `
-    <colgroup><col class="w-[150px]">${PLANS.map(() => "<col>").join("")}</colgroup>
-    <thead class="border-b border-slate-800 bg-slate-900/60">
-      <tr><th class="bg-slate-900"></th>${groupRow}</tr>
-      <tr><th scope="col" class="px-4 py-4 text-left align-bottom text-xs font-bold uppercase tracking-widest text-slate-500">Compare</th>${head}</tr>
-    </thead>
-    <tbody>${rows}</tbody>`;
-}
-
-/* ----- Cards (below xl) ----- */
-function renderCards(){
-  document.getElementById("cmpCards").innerHTML = GROUPS.map(g => `
-    <div>
-      <h3 class="mb-4 text-xs font-extrabold uppercase tracking-[0.2em] text-sky-400">${g.label}</h3>
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        ${PLANS.map((p, j) => ({ p, j })).filter(({ p }) => p.group === g.id).map(({ p, j }) => `
-        <article class="relative flex flex-col rounded-2xl border ${p.platinum ? "border-indigo-300/70 bg-indigo-500/[0.06] shadow-[0_0_50px_-20px_rgba(165,180,252,.7)]" : "border-slate-800 bg-slate-900/60"} p-6">
-          ${p.platinum ? `<div class="mb-3">${platTag}</div>` : ""}
-          <h4 class="text-lg font-extrabold text-white">${p.name}</h4>
-          <div class="mt-1 text-[11px] font-bold uppercase tracking-wider text-sky-400">${p.tag}</div>
-          ${priceBlock(p, true)}
-          <p class="mt-3 text-sm text-slate-400">${p.blurb}</p>
-          <ul class="mt-4 flex-1 divide-y divide-slate-800 text-sm">
-            ${FEATURES.map(([label, vals]) => `
-              <li class="flex items-center justify-between gap-3 py-2">
-                <span class="text-slate-400">${label}</span>
-                <span class="shrink-0">${vals[j] === true ? tick.replace("mx-auto ", "") : cell(vals[j])}</span>
-              </li>`).join("")}
-          </ul>
-          <div class="mt-5">${buyBtn(p)}</div>
-        </article>`).join("")}
-      </div>
-    </div>`).join("");
-}
-
-renderTable();
-renderCards();
-document.getElementById("yr").textContent = new Date().getFullYear();
-
-/* ----- Mobile menu ----- */
-const menuBtn = document.getElementById("menuBtn");
-const tray = document.getElementById("mobileTray");
-function setMenu(open){
-  tray.classList.toggle("open", open);
-  menuBtn.setAttribute("aria-expanded", String(open));
-  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  document.getElementById("iconOpen").classList.toggle("hidden", open);
-  document.getElementById("iconClose").classList.toggle("hidden", !open);
-}
-menuBtn.addEventListener("click", () => setMenu(!tray.classList.contains("open")));
-document.querySelectorAll(".mobile-link").forEach(a => a.addEventListener("click", () => setMenu(false)));
-window.addEventListener("resize", () => { if (window.innerWidth >= 768) setMenu(false); });
-
-/* ----- Payment modal ----- */
-const modal = document.getElementById("payModal");
-const payForm = document.getElementById("payForm");
-const payStatus = document.getElementById("payStatus");
-let activePlan = null, lastFocus = null;
-
-function openModal(plan){
-  activePlan = plan; lastFocus = document.activeElement;
-  document.getElementById("payTitle").textContent = `${plan.name} — ${plan.tag}`;
-  document.getElementById("payPrice").innerHTML = `${inr(plan.price)} <span class="text-slate-500">${plan.per}</span>${plan.renewal ? ` · renews at ${inr(plan.renewal)} / yr` : ""}`;
-  document.getElementById("payBtn").textContent = `Proceed to Pay ${inr(plan.price)}`;
-  payStatus.classList.add("hidden");
-  modal.classList.remove("hidden-modal");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  setTimeout(() => modal.querySelector('input[name="method"]:checked').focus(), 50);
-}
-function closeModal(){
-  modal.classList.add("hidden-modal");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-  if (lastFocus) lastFocus.focus();
-}
-document.addEventListener("click", e => {
-  const b = e.target.closest(".buy-btn");
-  if (b) openModal(PLANS.find(p => p.id === b.dataset.plan));
-});
-document.getElementById("payClose").addEventListener("click", closeModal);
-modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-document.addEventListener("keydown", e => {
-  if (modal.getAttribute("aria-hidden") === "true") return;
-  if (e.key === "Escape") closeModal();
-  if (e.key === "Tab"){ // keep keyboard focus inside the dialog
-    const checkedRadio = modal.querySelector('input[name="method"]:checked');
-    const rest = [...modal.querySelectorAll("button,input:not(.sr-only),select,textarea")].filter(el => el.offsetParent !== null);
-    const list = [checkedRadio, ...rest];
-    const first = list[0], last = list[list.length - 1];
-    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  }
-});
-
-payForm.querySelectorAll('input[name="method"]').forEach(r => r.addEventListener("change", () => {
-  payForm.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hidden", p.dataset.pane !== r.value));
-  payStatus.classList.add("hidden");
-}));
-
-["upiId","bankSel"].forEach(id => document.getElementById(id).addEventListener("input", () => payStatus.classList.add("hidden")));
-function showPayStatus(msg){ payStatus.textContent = msg; payStatus.classList.remove("hidden"); }
-
-payForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const method = payForm.querySelector('input[name="method"]:checked').value;
-  let detail = "";
-  if (method === "upi"){
-    const v = document.getElementById("upiId").value.trim();
-    if (v && !/^[\w.\-]{2,256}@[a-zA-Z]{2,64}$/.test(v)) return showPayStatus("Enter a valid UPI ID, like yourname@okhdfcbank — or leave it blank to scan a QR code.");
-    detail = v ? `UPI (${v})` : "UPI (QR)";
-  } else if (method === "netbanking"){
-    const bank = document.getElementById("bankSel").value;
-    if (!bank) return showPayStatus("Select your bank to continue.");
-    detail = `Net Banking (${bank})`;
-  } else {
-    detail = `${payForm.querySelector('input[name="cardType"]:checked').value === "credit" ? "Credit" : "Debit"} Card`;
-  }
-  startCheckout(activePlan, method, detail);
-});
-
-/* Hook for the live payment gateway (Razorpay Checkout with a server-created order).
-   Until CONFIG.checkoutLive is true, buyers are routed to the enquiry form with their
-   choice pre-filled, so no sale is lost. */
-function startCheckout(plan, method, detail){
-  if (CONFIG.checkoutLive){
-    /* TODO: create the order on the licence server, then open the gateway here. */
-    return;
-  }
-  showPayStatus("Online checkout opens shortly. We've noted your choice — send us your details and our team will activate your licence.");
-  setTimeout(() => {
-    closeModal();
-    prefillContact(`I'd like to buy ${plan.name} (${plan.tag}) at ${inr(plan.price)} ${plan.per}, paying by ${detail}.`);
-  }, 1800);
-}
-
-/* ----- Lead form ----- */
-const leadForm = document.getElementById("leadForm");
-const formStatus = document.getElementById("formStatus");
-function prefillContact(text){
-  document.getElementById("fMsg").value = text;
-  document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
-  setTimeout(() => document.getElementById("fName").focus({ preventScroll: true }), 700);
-}
-document.querySelectorAll(".prefill").forEach(a => a.addEventListener("click", e => {
-  e.preventDefault(); prefillContact(a.dataset.prefill);
-}));
-function setFormStatus(ok, msg){
-  formStatus.className = `mt-4 rounded-lg px-4 py-3 text-sm ${ok ? "border border-emerald-400/40 bg-emerald-400/10 text-emerald-200" : "border border-rose-400/40 bg-rose-400/10 text-rose-200"}`;
-  formStatus.textContent = msg;
-}
-leadForm.addEventListener("submit", async e => {
-  e.preventDefault();
-  const checks = [
-    ["fName",   "Enter your full legal name."],
-    ["fMobile", "Enter a valid 10-digit Indian mobile number."],
-    ["fEmail",  "Enter a valid email address."],
-    ["fMsg",    "Write a short message (at least 10 characters)."]
+  const HOTLINES = [
+    { label: "Verification line 1", number: "+91 97340 36000" },
+    { label: "Verification line 2", number: "+91 97340 37000" },
+    { label: "Verification line 3", number: "+91 89188 50178" }
   ];
-  for (const [id, msg] of checks){
-    const el = document.getElementById(id);
-    if (!el.checkValidity()){ setFormStatus(false, msg); el.focus(); return; }
+
+  const CONTACT_EMAIL = "info@srijeecreations.com";
+
+  const TABS = ["home", "products", "pricing", "partners", "contact"];
+  const TITLES = {
+    home: "BizPulse | Home",
+    products: "BizPulse | Products & Animations",
+    pricing: "BizPulse | Pricing & Download",
+    partners: "BizPulse | Partner Network",
+    contact: "BizPulse | Contact"
+  };
+
+  /* ---------- Splash ---------- */
+  const splash = document.getElementById("splash");
+  if (splash) {
+    const removeSplash = () => {
+      if (splash.parentNode) { splash.parentNode.removeChild(splash); }
+    };
+    splash.addEventListener("animationend", (event) => {
+      if (event.target === splash) { removeSplash(); }
+    });
+    window.setTimeout(removeSplash, 3000);
   }
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = true; btn.textContent = "Sending…";
-  try {
-    const res = await fetch(CONFIG.formEndpoint, { method: "POST", body: new FormData(leadForm), headers: { "Accept": "application/json" } });
-    if (!res.ok) throw new Error(res.status);
-    leadForm.reset();
-    setFormStatus(true, "Thank you! Your message is with our team. We'll call you back during support hours (10 AM – 6 PM, Mon–Sat).");
-  } catch {
-    setFormStatus(false, "We couldn't send your message just now. Please try again in a minute.");
-  } finally {
-    btn.disabled = false; btn.textContent = "Send Message";
+
+  /* ---------- Download buttons ---------- */
+  document.querySelectorAll("[data-download]").forEach((link) => {
+    const url = DOWNLOADS[link.getAttribute("data-download")];
+    if (url) {
+      link.setAttribute("href", url);
+      link.setAttribute("rel", "noopener");
+    } else {
+      link.removeAttribute("href");
+      link.removeAttribute("download");
+      link.classList.add("is-disabled");
+      link.setAttribute("aria-disabled", "true");
+      link.textContent = "Download · Coming Soon";
+    }
+  });
+
+  /* ---------- Hotlines ---------- */
+  const hotlineList = document.getElementById("hotline-list");
+  if (hotlineList) {
+    if (HOTLINES.length) {
+      HOTLINES.forEach((item) => {
+        const li = document.createElement("li");
+        const label = document.createElement("span");
+        label.className = "hl-label";
+        label.textContent = item.label;
+        const link = document.createElement("a");
+        link.href = "tel:" + String(item.number).replace(/[^\d+]/g, "");
+        link.textContent = item.number;
+        li.appendChild(label);
+        li.appendChild(link);
+        hotlineList.appendChild(li);
+      });
+    } else {
+      const li = document.createElement("li");
+      const label = document.createElement("span");
+      label.className = "hl-label";
+      label.textContent = "Licence validation & support";
+      const link = document.createElement("a");
+      link.href = "mailto:" + CONTACT_EMAIL + "?subject=BizPulse%20licence%20validation";
+      link.textContent = CONTACT_EMAIL;
+      li.appendChild(label);
+      li.appendChild(link);
+      hotlineList.appendChild(li);
+    }
   }
-});
+
+  /* ---------- Product animations ---------- */
+  const timers = {};
+  const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", minimumFractionDigits: 2 });
+  let invoiceSeq = 0;
+
+  const matrix = document.querySelector('[data-product="pro"] .matrix');
+  if (matrix) {
+    for (let i = 0; i < 32; i += 1) {
+      const cell = document.createElement("span");
+      cell.textContent = String(Math.floor(Math.random() * 10));
+      matrix.appendChild(cell);
+    }
+  }
+
+  const SYNC_STEPS = ["GSTR-1 synced", "GSTR-3B synced", "TDS/TCS logged", "Income tax log updated", "Ledgers reconciled"];
+
+  const demoHandlers = {
+    pocket: { start() {}, stop() {} },
+    lite: { start() {}, stop() {} },
+    billing: {
+      start(stage) {
+        const list = stage.querySelector(".ticker");
+        if (!list) { return; }
+        list.textContent = "";
+        const push = () => {
+          invoiceSeq = (invoiceSeq % 9999) + 1;
+          const taxable = 200 + Math.floor(Math.random() * 9800);
+          const total = Math.round(taxable * 118) / 100;
+          const li = document.createElement("li");
+          const no = document.createElement("span");
+          no.className = "inv-no";
+          no.textContent = "SRJ/26-27/" + String(invoiceSeq).padStart(4, "0");
+          const amt = document.createElement("span");
+          amt.className = "inv-amt";
+          amt.textContent = inr.format(total);
+          li.appendChild(no);
+          li.appendChild(amt);
+          list.insertBefore(li, list.firstChild);
+          while (list.children.length > 5) { list.removeChild(list.lastChild); }
+        };
+        push();
+        timers.billing = window.setInterval(push, 650);
+      },
+      stop(stage) {
+        const list = stage.querySelector(".ticker");
+        if (!list) { return; }
+        list.textContent = "";
+        const li = document.createElement("li");
+        li.className = "ticker-idle";
+        li.textContent = "Invoice feed idle";
+        list.appendChild(li);
+      }
+    },
+    standard: {
+      start(stage) {
+        const status = stage.querySelector(".sync-status");
+        if (!status) { return; }
+        let i = 0;
+        status.textContent = SYNC_STEPS[0];
+        timers.standard = window.setInterval(() => {
+          i = (i + 1) % SYNC_STEPS.length;
+          status.textContent = SYNC_STEPS[i];
+        }, 900);
+      },
+      stop(stage) {
+        const status = stage.querySelector(".sync-status");
+        if (status) { status.textContent = "Compliance sync idle"; }
+      }
+    },
+    pro: {
+      start(stage) {
+        const cells = Array.from(stage.querySelectorAll(".matrix span"));
+        if (!cells.length) { return; }
+        timers.pro = window.setInterval(() => {
+          cells.forEach((cell) => cell.classList.remove("is-lit"));
+          for (let k = 0; k < 6; k += 1) {
+            const cell = cells[Math.floor(Math.random() * cells.length)];
+            cell.textContent = String(Math.floor(Math.random() * 10));
+            cell.classList.add("is-lit");
+          }
+        }, 110);
+      },
+      stop(stage) {
+        stage.querySelectorAll(".matrix span").forEach((cell) => cell.classList.remove("is-lit"));
+      }
+    }
+  };
+
+  function setDemo(card, run) {
+    if (!card) { return; }
+    const key = card.getAttribute("data-product");
+    const stage = card.querySelector(".demo");
+    const button = card.querySelector(".demo-toggle");
+    const handler = demoHandlers[key];
+    if (!stage || !button || !handler) { return; }
+
+    const running = stage.classList.contains("is-running");
+    if (run === running) { return; }
+
+    if (timers[key]) {
+      window.clearInterval(timers[key]);
+      timers[key] = null;
+    }
+
+    if (run) {
+      stage.classList.add("is-running");
+      handler.start(stage);
+    } else {
+      stage.classList.remove("is-running");
+      handler.stop(stage);
+    }
+    button.setAttribute("aria-pressed", run ? "true" : "false");
+    button.textContent = run ? "Pause animation" : "Play animation";
+  }
+
+  function stopAllDemos() {
+    document.querySelectorAll(".product[data-product]").forEach((card) => setDemo(card, false));
+  }
+
+  /* ---------- Tabs ---------- */
+  const tabEls = {};
+  const pageEls = {};
+  TABS.forEach((name) => {
+    tabEls[name] = document.getElementById("tab-" + name);
+    pageEls[name] = document.getElementById("page-" + name);
+  });
+  let current = null;
+
+  function hashName() {
+    return window.location.hash.replace(/^#/, "").toLowerCase();
+  }
+
+  function activate(name, options) {
+    const opts = options || {};
+    if (TABS.indexOf(name) === -1) { name = "home"; }
+
+    if (name === current) {
+      if (opts.focus && tabEls[name]) { tabEls[name].focus(); }
+      return;
+    }
+
+    if (current === "products") { stopAllDemos(); }
+
+    TABS.forEach((key) => {
+      const on = key === name;
+      const tab = tabEls[key];
+      const page = pageEls[key];
+      if (tab) {
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.tabIndex = on ? 0 : -1;
+      }
+      if (page) {
+        page.hidden = !on;
+        page.classList.remove("is-entering");
+      }
+    });
+
+    const page = pageEls[name];
+    if (page) {
+      void page.offsetWidth;
+      page.classList.add("is-entering");
+    }
+
+    current = name;
+    document.title = TITLES[name];
+
+    if (opts.push && hashName() !== name) {
+      try { window.history.pushState({ tab: name }, "", "#" + name); } catch (e) { /* ignore */ }
+    }
+    if (opts.focus && tabEls[name]) { tabEls[name].focus(); }
+    if (opts.scroll !== false) { window.scrollTo(0, 0); }
+  }
+
+  document.addEventListener("click", (event) => {
+    const toggle = event.target.closest(".demo-toggle");
+    if (toggle) {
+      const card = toggle.closest(".product");
+      setDemo(card, toggle.getAttribute("aria-pressed") !== "true");
+      return;
+    }
+    const link = event.target.closest("[data-tab-link]");
+    if (link) {
+      event.preventDefault();
+      activate(link.getAttribute("data-tab-link"), { push: true });
+    }
+  });
+
+  const tablist = document.querySelector('[role="tablist"]');
+  if (tablist) {
+    tablist.addEventListener("keydown", (event) => {
+      const index = TABS.indexOf(current);
+      let next = null;
+      if (event.key === "ArrowRight") { next = TABS[(index + 1) % TABS.length]; }
+      else if (event.key === "ArrowLeft") { next = TABS[(index - 1 + TABS.length) % TABS.length]; }
+      else if (event.key === "Home") { next = TABS[0]; }
+      else if (event.key === "End") { next = TABS[TABS.length - 1]; }
+      if (next) {
+        event.preventDefault();
+        activate(next, { focus: true, push: true });
+      }
+    });
+  }
+
+  window.addEventListener("popstate", () => activate(hashName(), { scroll: false }));
+  window.addEventListener("hashchange", () => activate(hashName(), { scroll: false }));
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { stopAllDemos(); }
+  });
+
+  const yearEl = document.getElementById("year");
+  if (yearEl) { yearEl.textContent = String(new Date().getFullYear()); }
+
+  const initial = hashName();
+  activate(TABS.indexOf(initial) !== -1 ? initial : "home", { scroll: false });
+})();
 </script>
 </body>
 </html>
