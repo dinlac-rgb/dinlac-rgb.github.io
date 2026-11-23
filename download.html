@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizPulse | Download &amp; Activate</title>
+<meta name="description" content="Register, get your BizPulse licence key and download the Windows installer. 7-day free trial available.">
+<meta name="theme-color" content="#08172f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  /* Download & Activate page only: navy #08172f and metallic gold #d8b25a, matching assets/site.css. */
+  .act-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 24px; align-items: start; margin-top: 8px; }
+  @media (max-width: 900px) { .act-grid { grid-template-columns: 1fr; } }
+  .act-panel { background: #0d2140; border: 1px solid #1f3d66; border-radius: 10px; padding: 24px 26px; color: #e9f0f9; }
+  .act-panel h3 { margin: 0 0 4px; color: #ffffff; font-size: 1.25rem; }
+  .act-panel .act-sub { margin: 0 0 18px; color: #a9bdd6; font-size: 0.95rem; }
+  .act-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  .act-form .full { grid-column: 1 / -1; }
+  @media (max-width: 600px) { .act-form { grid-template-columns: 1fr; } }
+  .act-field { display: grid; gap: 6px; }
+  .act-field label { font-size: 0.9rem; color: #cfdcec; }
+  .act-field label .req { color: #d8b25a; margin-left: 2px; }
+  .act-field input, .act-field select { width: 100%; box-sizing: border-box; background: #08172f; color: #ffffff; border: 1px solid #2b4f7e; border-radius: 6px; padding: 10px 12px; font: inherit; }
+  .act-field input:focus, .act-field select:focus { outline: 2px solid #d8b25a; outline-offset: 0; border-color: #d8b25a; }
+  .act-field input[aria-invalid="true"], .act-field select[aria-invalid="true"] { border-color: #e07a6a; }
+  .act-field .hint { font-size: 0.8rem; color: #8ea6c4; }
+  .act-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 6px; }
+  .act-error { display: none; background: #3a1820; border: 1px solid #a3473f; color: #ffd9d4; border-radius: 6px; padding: 10px 12px; font-size: 0.92rem; }
+  .act-error.show { display: block; }
+  .act-busy { color: #d8b25a; font-size: 0.92rem; }
+  .act-key { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #08172f; border: 1px dashed #d8b25a; border-radius: 8px; padding: 14px 16px; margin: 10px 0 6px; }
+  .act-key code { font-size: 1.15rem; letter-spacing: 1px; color: #d8b25a; word-break: break-all; flex: 1 1 260px; }
+  .act-ref { display: inline-block; background: #d8b25a; color: #08172f; font-weight: 700; border-radius: 6px; padding: 4px 10px; letter-spacing: 1px; }
+  .act-list { margin: 8px 0 0; padding-left: 20px; color: #d5e1f0; }
+  .act-list li { margin: 6px 0; }
+  .act-file { font-family: Consolas, "Courier New", monospace; color: #a9bdd6; font-size: 0.88rem; margin: 6px 0 14px; }
+  .act-cash { background: #08172f; border-left: 3px solid #d8b25a; border-radius: 6px; padding: 12px 14px; margin-top: 16px; }
+  .act-cash b { color: #d8b25a; }
+  .act-thanks h3 { color: #d8b25a; }
+  .act-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1f3d66; }
+  .act-row span:first-child { color: #a9bdd6; }
+  .act-side + .act-side { margin-top: 20px; }
+  .btn-wa { background: #1e4b82; color: #ffffff; border: 1px solid #2f66a8; }
+  .btn-wa:hover { background: #24599a; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <h1 class="logo"><a href="index.html">BIZPULSE</a></h1>
+      <p class="tagline">A Creation of Srijee Creations</p>
+      <span class="brand-line" aria-hidden="true"></span>
+    </div>
+    <div class="support-badge">Support: 10 AM – 6 PM, Monday to Saturday</div>
+  </div>
+  <nav class="tabbar" aria-label="Site pages">
+    <a class="tab" href="index.html">Home</a>
+    <a class="tab" href="products.html">Products &amp; Features</a>
+    <a class="tab" href="pricing.html">Pricing</a>
+    <a class="tab" href="partners.html">Partner Network</a>
+    <a class="tab" href="download.html" aria-current="page">Download &amp; Activate</a>
+    <a class="tab" href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page" id="page-download">
+    <div class="page-head">
+      <p class="eyebrow">Download &amp; Activate</p>
+      <h2>Register, get your licence key and install BizPulse</h2>
+      <p>Fill in your details to receive a licence key tied to your registered email (your BizPulse ID). Start with a 7-day free trial or choose your edition.</p>
+    </div>
+
+    <div class="act-grid">
+
+      <!-- Left panel: registration form, then the Thank You & licence key screen -->
+      <div class="act-panel" id="act-left">
+
+        <div id="act-form-wrap">
+          <h3>Customer registration</h3>
+          <p class="act-sub">Fields marked <span style="color:#d8b25a">*</span> are required.</p>
+
+          <form class="act-form" id="act-form" novalidate>
+            <div class="act-field">
+              <label for="f-name">Full Name<span class="req">*</span></label>
+              <input id="f-name" name="fullName" type="text" autocomplete="name" required maxlength="80">
+            </div>
+            <div class="act-field">
+              <label for="f-firm">Business / Firm Name</label>
+              <input id="f-firm" name="businessName" type="text" autocomplete="organization" maxlength="120">
+            </div>
+            <div class="act-field">
+              <label for="f-email">Registered Email / BizPulse ID<span class="req">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="120" spellcheck="false">
+              <span class="hint">Your licence key works only with this email.</span>
+            </div>
+            <div class="act-field">
+              <label for="f-mobile">WhatsApp Mobile Number<span class="req">*</span></label>
+              <input id="f-mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required maxlength="14" placeholder="10-digit mobile number">
+            </div>
+            <div class="act-field">
+              <label for="f-state">State<span class="req">*</span></label>
+              <select id="f-state" name="state" required>
+                <option value="">Select your state</option>
+                <option>Andaman and Nicobar Islands</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+                <option>Bihar</option><option>Chandigarh</option><option>Chhattisgarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option>
+                <option>Delhi</option><option>Goa</option><option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+                <option>Jammu and Kashmir</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Ladakh</option>
+                <option>Lakshadweep</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+                <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Puducherry</option><option>Punjab</option>
+                <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option>
+                <option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+              </select>
+            </div>
+            <div class="act-field">
+              <label for="f-edition">Select Edition<span class="req">*</span></label>
+              <select id="f-edition" name="edition" required>
+                <option value="TRIAL">7-Day Free Trial (Full BizPulse Pro — ₹0)</option>
+                <option value="BILL">BizPulse Billing (Desktop — ₹499/yr)</option>
+                <option value="LITE">BizPulse Lite (Desktop — ₹1,499/yr)</option>
+                <option value="STD">BizPulse Standard (Starting ₹2,999/yr)</option>
+                <option value="PRO">BizPulse Pro Corporate (Starting ₹6,999/yr)</option>
+              </select>
+            </div>
+            <div class="act-field full">
+              <label for="f-ref">Referral Code (Optional)</label>
+              <input id="f-ref" name="referralCode" type="text" maxlength="20" spellcheck="false" autocomplete="off" style="text-transform: uppercase">
+            </div>
+
+            <div class="act-error full" id="act-error" role="alert"></div>
+
+            <div class="act-actions full">
+              <button class="btn btn-gold" type="submit" id="act-submit">Get My Licence Key</button>
+              <span class="act-busy" id="act-busy" hidden>Generating your licence key…</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="act-thanks" id="act-thanks" hidden aria-live="polite">
+          <h3 id="t-title">Thank you!</h3>
+          <p class="act-sub" id="t-msg"></p>
+
+          <div class="act-row"><span>Edition</span><b id="t-edition"></b></div>
+          <div class="act-row"><span>Registered Email (BizPulse ID)</span><b id="t-email"></b></div>
+
+          <p style="margin:16px 0 0">Your licence key:</p>
+          <div class="act-key">
+            <code id="t-key"></code>
+            <button class="btn btn-outline" type="button" id="t-copy">Copy Key</button>
+          </div>
+          <p class="act-sub">Enter this key with the same email when BizPulse asks for activation on first launch.</p>
+
+          <div class="act-actions">
+            <a class="btn btn-gold" id="t-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe" target="_blank" rel="noopener">Download for Windows</a>
+          </div>
+
+          <div class="act-cash">
+            <p style="margin:0 0 6px">Your referral code: <span class="act-ref" id="t-ref"></span></p>
+            <p style="margin:0">Share it and earn <b>15% cashback</b> on your first referral within 30 days, and <b>10% cashback</b> on every referral after that.</p>
+            <div class="act-actions" style="margin-top:12px">
+              <a class="btn btn-wa" id="t-wa" href="#" target="_blank" rel="noopener">Share on WhatsApp</a>
+              <button class="btn btn-outline" type="button" id="t-copyref">Copy Referral Code</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right panel: direct download, quick guide, referral summary -->
+      <aside class="act-panel">
+        <div class="act-side">
+          <h3>Direct download</h3>
+          <p class="act-sub">Version 1.0.0 · Windows 10 / 11, 64-bit</p>
+          <p class="act-file">BizPulse_Setup_v1.0.0.exe</p>
+          <a class="btn btn-primary" id="side-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe" target="_blank" rel="noopener">Download BizPulse_Setup_v1.0.0.exe</a>
+        </div>
+
+        <div class="act-side">
+          <h3>Quick installation guide</h3>
+          <ol class="act-list">
+            <li>Register on this page to receive your licence key by email.</li>
+            <li>Download and run <b>BizPulse_Setup_v1.0.0.exe</b>. If Windows SmartScreen appears, choose <b>More info → Run anyway</b>.</li>
+            <li>Open BizPulse. On first launch, enter your <b>Registered Email</b> and <b>Licence Key</b>, then press <b>Activate</b>.</li>
+            <li>Or choose <b>7-Day Free Trial</b> on the activation screen to start straight away.</li>
+            <li>Create your company and start entering vouchers.</li>
+          </ol>
+        </div>
+
+        <div class="act-side act-cash">
+          <p style="margin:0 0 6px"><b>Refer &amp; earn</b></p>
+          <p style="margin:0">Every registration gets a personal referral code. Earn <b>15% cashback</b> on your first referral within 30 days and <b>10% cashback</b> on every referral after that.</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <p class="note">One licence key per licence, tied to your registered email and activated on one PC. Need help? Write to us from the Contact page (10 AM – 6 PM, Monday to Saturday).</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© <span id="year">2026</span> Srijee Creations. All rights reserved.</span>
+    <span>South Babupara, Siliguri, West Bengal</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+const LICENSE_API_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe';
+
+(function () {
+  'use strict';
+
+  const EDITION_NAMES = {
+    TRIAL: '7-Day Free Trial',
+    BILL: 'BizPulse Billing',
+    LITE: 'BizPulse Lite',
+    STD: 'BizPulse Standard',
+    PRO: 'BizPulse Pro Corporate'
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const form = $('act-form');
+  const errorBox = $('act-error');
+  const submitBtn = $('act-submit');
+  const busy = $('act-busy');
+
+  // Pre-select the edition from ?edition=BILL | LITE | STD | PRO | TRIAL
+  const wanted = (new URLSearchParams(window.location.search).get('edition') || '').trim().toUpperCase();
+  if (EDITION_NAMES[wanted]) $('f-edition').value = wanted;
+
+  const showError = (msg) => { errorBox.textContent = msg; errorBox.classList.add('show'); };
+  const clearError = () => { errorBox.textContent = ''; errorBox.classList.remove('show'); };
+  const mark = (el, bad) => el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+
+  const cleanMobile = (v) => {
+    let d = String(v || '').replace(/\D/g, '');
+    if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+    if (d.length === 11 && d.startsWith('0')) d = d.slice(1);
+    return d;
+  };
+
+  function validate() {
+    const name = $('f-name'), email = $('f-email'), mobile = $('f-mobile'), state = $('f-state');
+    const problems = [];
+    const okName = name.value.trim().length >= 2; mark(name, !okName); if (!okName) problems.push('your full name');
+    const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()); mark(email, !okEmail); if (!okEmail) problems.push('a valid email');
+    const okMobile = /^[6-9]\d{9}$/.test(cleanMobile(mobile.value)); mark(mobile, !okMobile); if (!okMobile) problems.push('a valid 10-digit WhatsApp number');
+    const okState = !!state.value; mark(state, !okState); if (!okState) problems.push('your state');
+    return problems;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+    const problems = validate();
+    if (problems.length) { showError('Please enter ' + problems.join(', ') + '.'); return; }
+    if (!LICENSE_API_URL || LICENSE_API_URL.indexOf('PASTE_YOUR') === 0) {
+      showError('Licence registration is not connected yet. Please try again later or contact us.');
+      return;
+    }
+
+    const payload = {
+      fullName: $('f-name').value.trim(),
+      businessName: $('f-firm').value.trim(),
+      email: $('f-email').value.trim().toLowerCase(),
+      mobile: cleanMobile($('f-mobile').value),
+      state: $('f-state').value,
+      edition: $('f-edition').value,
+      referralCode: $('f-ref').value.trim().toUpperCase(),
+      source: 'mybizpulse.in/download.html',
+      submittedAt: new Date().toISOString()
+    };
+
+    submitBtn.disabled = true;
+    busy.hidden = false;
+    try {
+      // text/plain avoids a CORS preflight, which Google Apps Script web apps do not answer; the body is still JSON.
+      const res = await fetch(LICENSE_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('The server answered ' + res.status + '.');
+      const data = await res.json();
+      if (!data || data.ok === false || !data.licenseKey) throw new Error((data && (data.error || data.message)) || 'No licence key was returned.');
+      showThanks(payload, data);
+    } catch (err) {
+      showError('Sorry, we could not generate your licence key. ' + (err && err.message ? err.message : '') + ' Please try again, or contact us.');
+    } finally {
+      submitBtn.disabled = false;
+      busy.hidden = true;
+    }
+  });
+
+  function showThanks(p, data) {
+    const editionName = data.editionName || EDITION_NAMES[p.edition] || p.edition;
+    const firstName = p.fullName.split(/\s+/)[0];
+    // Use the server's download link only if it points to an installer (.exe); otherwise keep the GitHub Release link.
+    const downloadUrl = /^https:\/\/\S+\.exe(\?\S*)?$/i.test(String(data.downloadUrl || '')) ? data.downloadUrl : DEFAULT_DOWNLOAD_URL;
+    const ref = data.myReferralCode || '';
+
+    $('t-title').textContent = 'Thank you, ' + firstName + '!';
+    $('t-msg').textContent = 'Your ' + editionName + ' licence key is ready' + (p.businessName ? ' for ' + p.businessName : '') + '. Keep it safe.';
+    $('t-edition').textContent = editionName;
+    $('t-email').textContent = p.email;
+    $('t-key').textContent = data.licenseKey;
+    $('t-download').href = downloadUrl;
+    $('t-ref').textContent = ref || '—';
+
+    const shareText = 'I use BizPulse for GST billing and accounting. Register with my referral code ' + ref + ' at https://mybizpulse.in/download.html';
+    $('t-wa').href = data.whatsappShareUrl || ('https://wa.me/?text=' + encodeURIComponent(shareText));
+    $('t-wa').hidden = !ref && !data.whatsappShareUrl;
+    $('t-copyref').hidden = !ref;
+
+    $('act-form-wrap').hidden = true;
+    $('act-thanks').hidden = false;
+    $('act-left').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copy(text, btn) {
+    const done = () => { const t = btn.textContent; btn.textContent = 'Copied'; setTimeout(() => { btn.textContent = t; }, 1500); };
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done, () => fallback(text, done)); }
+    else fallback(text, done);
+  }
+  function fallback(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { /* the key stays visible to copy by hand */ }
+    document.body.removeChild(ta);
+  }
+  $('t-copy').addEventListener('click', () => copy($('t-key').textContent, $('t-copy')));
+  $('t-copyref').addEventListener('click', () => copy($('t-ref').textContent, $('t-copyref')));
+})();
+</script>
+</body>
+</html>
