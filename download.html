@@ -125,8 +125,12 @@
                 <option value="TRIAL">7-Day Free Trial (Full BizPulse Pro — ₹0)</option>
                 <option value="BILL">BizPulse Billing (Desktop — ₹499/yr)</option>
                 <option value="LITE">BizPulse Lite (Desktop — ₹1,499/yr)</option>
-                <option value="STD">BizPulse Standard (Starting ₹2,999/yr)</option>
-                <option value="PRO">BizPulse Pro Corporate (Starting ₹6,999/yr)</option>
+                <option value="STD_SILVER">BizPulse Standard Silver (1 Seat — ₹2,999/yr)</option>
+                <option value="STD_GOLD">BizPulse Standard Gold (Up to 3 Seats — ₹8,999/yr)</option>
+                <option value="STD_PLATINUM">BizPulse Standard Platinum (Lifetime · Up to 3 Seats — ₹17,999)</option>
+                <option value="PRO_SILVER">BizPulse Pro Silver (1 Seat — ₹6,999/yr)</option>
+                <option value="PRO_GOLD">BizPulse Pro Gold (Up to 7 Seats — ₹20,999/yr)</option>
+                <option value="PRO_PLATINUM">BizPulse Pro Platinum (Lifetime · Up to 7 Seats — ₹41,999)</option>
               </select>
             </div>
             <div class="act-field full">
@@ -221,13 +225,20 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
 (function () {
   'use strict';
 
-  const EDITION_NAMES = {
-    TRIAL: '7-Day Free Trial',
-    BILL: 'BizPulse Billing',
-    LITE: 'BizPulse Lite',
-    STD: 'BizPulse Standard',
-    PRO: 'BizPulse Pro Corporate'
+  // Each plan and the desktop edition code its licence key is made for (BP-<CODE>-…), which the BizPulse .exe activates.
+  const PLANS = {
+    TRIAL: { code: 'TRIAL', name: '7-Day Free Trial (Full BizPulse Pro)' },
+    BILL: { code: 'BILL', name: 'BizPulse Billing' },
+    LITE: { code: 'LITE', name: 'BizPulse Lite' },
+    STD_SILVER: { code: 'STD', name: 'BizPulse Standard Silver' },
+    STD_GOLD: { code: 'STD', name: 'BizPulse Standard Gold' },
+    STD_PLATINUM: { code: 'STD', name: 'BizPulse Standard Platinum (Lifetime)' },
+    PRO_SILVER: { code: 'PRO', name: 'BizPulse Pro Silver' },
+    PRO_GOLD: { code: 'PRO', name: 'BizPulse Pro Gold' },
+    PRO_PLATINUM: { code: 'PRO', name: 'BizPulse Pro Platinum (Lifetime)' }
   };
+  /** ?edition=STD / PRO (older links) open the Silver plan of that edition. */
+  const EDITION_DEFAULT_PLAN = { TRIAL: 'TRIAL', BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
 
   const $ = (id) => document.getElementById(id);
   const form = $('act-form');
@@ -235,9 +246,12 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
   const submitBtn = $('act-submit');
   const busy = $('act-busy');
 
-  // Pre-select the edition from ?edition=BILL | LITE | STD | PRO | TRIAL
-  const wanted = (new URLSearchParams(window.location.search).get('edition') || '').trim().toUpperCase();
-  if (EDITION_NAMES[wanted]) $('f-edition').value = wanted;
+  // Pre-select the plan from ?plan=PRO_PLATINUM (pricing cards) or ?edition=BILL | LITE | STD | PRO | TRIAL.
+  const query = new URLSearchParams(window.location.search);
+  const wantedPlan = (query.get('plan') || '').trim().toUpperCase();
+  const wantedEdition = (query.get('edition') || '').trim().toUpperCase();
+  if (PLANS[wantedPlan]) $('f-edition').value = wantedPlan;
+  else if (EDITION_DEFAULT_PLAN[wantedEdition]) $('f-edition').value = EDITION_DEFAULT_PLAN[wantedEdition];
 
   const showError = (msg) => { errorBox.textContent = msg; errorBox.classList.add('show'); };
   const clearError = () => { errorBox.textContent = ''; errorBox.classList.remove('show'); };
@@ -276,7 +290,9 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
       email: $('f-email').value.trim().toLowerCase(),
       mobile: cleanMobile($('f-mobile').value),
       state: $('f-state').value,
-      edition: $('f-edition').value,
+      edition: (PLANS[$('f-edition').value] || PLANS.TRIAL).code,
+      plan: $('f-edition').value,
+      planName: (PLANS[$('f-edition').value] || PLANS.TRIAL).name,
       referralCode: $('f-ref').value.trim().toUpperCase(),
       source: 'mybizpulse.in/download.html',
       submittedAt: new Date().toISOString()
@@ -304,7 +320,7 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
   });
 
   function showThanks(p, data) {
-    const editionName = data.editionName || EDITION_NAMES[p.edition] || p.edition;
+    const editionName = data.planName || data.editionName || p.planName || p.edition;
     const firstName = p.fullName.split(/\s+/)[0];
     // Use the server's download link only if it points to an installer (.exe); otherwise keep the GitHub Release link.
     const downloadUrl = /^https:\/\/\S+\.exe(\?\S*)?$/i.test(String(data.downloadUrl || '')) ? data.downloadUrl : DEFAULT_DOWNLOAD_URL;
