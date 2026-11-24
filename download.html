@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BizPulse | Download &amp; Activate</title>
-<meta name="description" content="Register, get your BizPulse licence key and download the Windows installer. 7-day free trial available.">
+<meta name="description" content="Register, get your BizPulse licence key and download the Windows installer. Free trials of 7 to 21 days, or a paid subscription.">
 <meta name="theme-color" content="#08172f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +45,17 @@
   .act-side + .act-side { margin-top: 20px; }
   .btn-wa { background: #1e4b82; color: #ffffff; border: 1px solid #2f66a8; }
   .btn-wa:hover { background: #24599a; }
+  .act-mode { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border: 0; padding: 0; margin: 0 0 4px; }
+  @media (max-width: 600px) { .act-mode { grid-template-columns: 1fr; } }
+  .act-mode legend { font-size: 0.9rem; color: #cfdcec; margin-bottom: 8px; padding: 0; }
+  .act-mode label { display: flex; gap: 10px; align-items: flex-start; background: #08172f; border: 1px solid #2b4f7e; border-radius: 8px; padding: 12px 14px; cursor: pointer; }
+  .act-mode label:has(input:checked) { border-color: #d8b25a; box-shadow: inset 0 0 0 1px #d8b25a; }
+  .act-mode input { accent-color: #d8b25a; margin-top: 3px; }
+  .act-mode b { display: block; color: #ffffff; }
+  .act-mode small { color: #a9bdd6; font-size: 0.82rem; }
+  .act-pending { background: #2a2410; border: 1px solid #8a7334; color: #f3e3b5; border-radius: 6px; padding: 12px 14px; margin-top: 14px; font-size: 0.92rem; }
+  .act-keep { font-size: 0.82rem; color: #a9bdd6; margin: 8px 0 0; line-height: 1.45; }
+  .act-keep b { color: #d8b25a; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -75,7 +86,7 @@
     <div class="page-head">
       <p class="eyebrow">Download &amp; Activate</p>
       <h2>Register, get your licence key and install BizPulse</h2>
-      <p>Fill in your details to receive a licence key tied to your registered email (your BizPulse ID). Start with a 7-day free trial or choose your edition.</p>
+      <p>Fill in your details to receive a licence key tied to your registered email (your BizPulse ID). Use BizPulse free with a trial key straight away, or choose a paid subscription.</p>
     </div>
 
     <div class="act-grid">
@@ -88,6 +99,11 @@
           <p class="act-sub">Fields marked <span style="color:#d8b25a">*</span> are required.</p>
 
           <form class="act-form" id="act-form" novalidate>
+            <fieldset class="act-mode" id="f-mode">
+              <legend>How would you like to start?<span class="req" style="color:#d8b25a">*</span></legend>
+              <label><input type="radio" name="mode" value="TRIAL" checked><span><b>Use it for Free (Trial)</b><small>Get a trial key instantly by email — 7 to 21 days, no payment.</small></span></label>
+              <label><input type="radio" name="mode" value="PAID"><span><b>Paid Subscription</b><small>Annual or lifetime plan. Start now with a temporary key; your permanent key follows once payment is confirmed.</small></span></label>
+            </fieldset>
             <div class="act-field">
               <label for="f-name">Full Name<span class="req">*</span></label>
               <input id="f-name" name="fullName" type="text" autocomplete="name" required maxlength="80">
@@ -120,18 +136,9 @@
               </select>
             </div>
             <div class="act-field">
-              <label for="f-edition">Select Edition<span class="req">*</span></label>
-              <select id="f-edition" name="edition" required>
-                <option value="TRIAL">7-Day Free Trial (Full BizPulse Pro — ₹0)</option>
-                <option value="BILL">BizPulse Billing (Desktop — ₹499/yr)</option>
-                <option value="LITE">BizPulse Lite (Desktop — ₹1,499/yr)</option>
-                <option value="STD_SILVER">BizPulse Standard Silver (1 Seat — ₹2,999/yr)</option>
-                <option value="STD_GOLD">BizPulse Standard Gold (Up to 3 Seats — ₹8,999/yr)</option>
-                <option value="STD_PLATINUM">BizPulse Standard Platinum (Lifetime · Up to 3 Seats — ₹17,999)</option>
-                <option value="PRO_SILVER">BizPulse Pro Silver (1 Seat — ₹6,999/yr)</option>
-                <option value="PRO_GOLD">BizPulse Pro Gold (Up to 7 Seats — ₹20,999/yr)</option>
-                <option value="PRO_PLATINUM">BizPulse Pro Platinum (Lifetime · Up to 7 Seats — ₹41,999)</option>
-              </select>
+              <label for="f-edition" id="f-edition-label">Select Edition<span class="req">*</span></label>
+              <select id="f-edition" name="edition" required></select>
+              <span class="hint" id="f-edition-hint"></span>
             </div>
             <div class="act-field full">
               <label for="f-ref">Referral Code (Optional)</label>
@@ -141,7 +148,7 @@
             <div class="act-error full" id="act-error" role="alert"></div>
 
             <div class="act-actions full">
-              <button class="btn btn-gold" type="submit" id="act-submit">Get My Licence Key</button>
+              <button class="btn btn-gold" type="submit" id="act-submit">Get My Free Trial Key</button>
               <span class="act-busy" id="act-busy" hidden>Generating your licence key…</span>
             </div>
           </form>
@@ -153,19 +160,23 @@
 
           <div class="act-row"><span>Edition</span><b id="t-edition"></b></div>
           <div class="act-row"><span>Registered Email (BizPulse ID)</span><b id="t-email"></b></div>
+          <div class="act-row"><span>Key type</span><b id="t-type"></b></div>
+          <div class="act-row" id="t-exp-row"><span>Trial valid till</span><b id="t-exp"></b></div>
 
-          <p style="margin:16px 0 0">Your licence key:</p>
+          <p style="margin:16px 0 0" id="t-keylabel">Your licence key:</p>
           <div class="act-key">
             <code id="t-key"></code>
             <button class="btn btn-outline" type="button" id="t-copy">Copy Key</button>
           </div>
-          <p class="act-sub">Enter this key with the same email when BizPulse asks for activation on first launch.</p>
+          <p class="act-sub">Enter this key with the same email when BizPulse asks for activation on first launch. We have also emailed it to you.</p>
+          <div class="act-pending" id="t-pending" hidden>Your order is recorded as <b>pending payment</b>. Use the temporary key above until then. As soon as we confirm your payment we will email your permanent licence key and your referral code. Enter the permanent key in BizPulse (Settings → License &amp; Device) — your companies and data stay exactly as they are.</div>
 
           <div class="act-actions">
-            <a class="btn btn-gold" id="t-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe" target="_blank" rel="noopener">Download for Windows</a>
+            <a class="btn btn-gold" id="t-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download for Windows</a>
           </div>
+          <p class="act-keep">If Microsoft Edge says the file "isn't commonly downloaded", click <b>…</b> (See more) → <b>Keep</b> → <b>Show more</b> → <b>Keep anyway</b>. When you run it, if Windows SmartScreen appears, click <b>More info</b> → <b>Run anyway</b>.</p>
 
-          <div class="act-cash">
+          <div class="act-cash" id="t-cash">
             <p style="margin:0 0 6px">Your referral code: <span class="act-ref" id="t-ref"></span></p>
             <p style="margin:0">Share it and earn <b>15% cashback</b> on your first referral within 30 days, and <b>10% cashback</b> on every referral after that.</p>
             <div class="act-actions" style="margin-top:12px">
@@ -183,23 +194,24 @@
           <h3>Direct download</h3>
           <p class="act-sub">Version 1.0.0 · Windows 10 / 11, 64-bit</p>
           <p class="act-file">BizPulse_Setup_v1.0.0.exe</p>
-          <a class="btn btn-primary" id="side-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe" target="_blank" rel="noopener">Download BizPulse_Setup_v1.0.0.exe</a>
+          <a class="btn btn-primary" id="side-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download BizPulse_Setup_v1.0.0.exe</a>
+          <p class="act-keep">If Microsoft Edge says the file "isn't commonly downloaded", click <b>…</b> (See more) → <b>Keep</b> → <b>Show more</b> → <b>Keep anyway</b>. When you run it, if Windows SmartScreen appears, click <b>More info</b> → <b>Run anyway</b>.</p>
         </div>
 
         <div class="act-side">
           <h3>Quick installation guide</h3>
           <ol class="act-list">
-            <li>Register on this page to receive your licence key by email.</li>
-            <li>Download and run <b>BizPulse_Setup_v1.0.0.exe</b>. If Windows SmartScreen appears, choose <b>More info → Run anyway</b>.</li>
+            <li>Register on this page — choose <b>Free Trial</b> or <b>Paid Subscription</b>. Your key is shown here and emailed to you.</li>
+            <li>Download <b>BizPulse_Setup_v1.0.0.exe</b>. In Edge choose <b>Keep</b>; when it runs, choose <b>More info → Run anyway</b> if SmartScreen appears.</li>
             <li>Open BizPulse. On first launch, enter your <b>Registered Email</b> and <b>Licence Key</b>, then press <b>Activate</b>.</li>
-            <li>Or choose <b>7-Day Free Trial</b> on the activation screen to start straight away.</li>
+            <li>Bought a plan after your trial? Enter the new key in <b>Settings → License &amp; Device</b>. Your companies and vouchers are kept.</li>
             <li>Create your company and start entering vouchers.</li>
           </ol>
         </div>
 
         <div class="act-side act-cash">
           <p style="margin:0 0 6px"><b>Refer &amp; earn</b></p>
-          <p style="margin:0">Every registration gets a personal referral code. Earn <b>15% cashback</b> on your first referral within 30 days and <b>10% cashback</b> on every referral after that.</p>
+          <p style="margin:0">Every customer gets a personal referral code (paid plans: sent once payment is confirmed). Earn <b>15% cashback</b> on your first referral within 30 days and <b>10% cashback</b> on every referral after that.</p>
         </div>
       </aside>
 
@@ -225,33 +237,76 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
 (function () {
   'use strict';
 
-  // Each plan and the desktop edition code its licence key is made for (BP-<CODE>-…), which the BizPulse .exe activates.
-  const PLANS = {
-    TRIAL: { code: 'TRIAL', name: '7-Day Free Trial (Full BizPulse Pro)' },
-    BILL: { code: 'BILL', name: 'BizPulse Billing' },
-    LITE: { code: 'LITE', name: 'BizPulse Lite' },
-    STD_SILVER: { code: 'STD', name: 'BizPulse Standard Silver' },
-    STD_GOLD: { code: 'STD', name: 'BizPulse Standard Gold' },
-    STD_PLATINUM: { code: 'STD', name: 'BizPulse Standard Platinum (Lifetime)' },
-    PRO_SILVER: { code: 'PRO', name: 'BizPulse Pro Silver' },
-    PRO_GOLD: { code: 'PRO', name: 'BizPulse Pro Gold' },
-    PRO_PLATINUM: { code: 'PRO', name: 'BizPulse Pro Platinum (Lifetime)' }
+  // Free trial choices: the desktop trial code each key is made for (BP-<CODE>-…) and its length in days.
+  const TRIAL_PLANS = {
+    TBILL: { code: 'TBILL', days: 7, name: 'BizPulse Billing — 7-Day Free Trial' },
+    TLITE: { code: 'TLITE', days: 7, name: 'BizPulse Lite — 7-Day Free Trial' },
+    TSTD: { code: 'TSTD', days: 15, name: 'BizPulse Standard — 15-Day Free Trial' },
+    TPRO: { code: 'TPRO', days: 21, name: 'BizPulse Pro — 21-Day Free Trial' }
   };
-  /** ?edition=STD / PRO (older links) open the Silver plan of that edition. */
-  const EDITION_DEFAULT_PLAN = { TRIAL: 'TRIAL', BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
+  // Paid plans: the desktop edition code of the permanent key, and the trial code of the temporary key issued while payment is pending.
+  const PAID_PLANS = {
+    BILL: { code: 'BILL', trial: 'TBILL', name: 'BizPulse Billing', label: 'BizPulse Billing (Desktop — ₹499/yr)' },
+    LITE: { code: 'LITE', trial: 'TLITE', name: 'BizPulse Lite', label: 'BizPulse Lite (Desktop — ₹1,499/yr)' },
+    STD_SILVER: { code: 'STD', trial: 'TSTD', name: 'BizPulse Standard Silver', label: 'BizPulse Standard Silver (1 Seat — ₹2,999/yr)' },
+    STD_GOLD: { code: 'STD', trial: 'TSTD', name: 'BizPulse Standard Gold', label: 'BizPulse Standard Gold (Up to 3 Seats — ₹8,999/yr)' },
+    STD_PLATINUM: { code: 'STD', trial: 'TSTD', name: 'BizPulse Standard Platinum (Lifetime)', label: 'BizPulse Standard Platinum (Lifetime · Up to 3 Seats — ₹17,999)' },
+    PRO_SILVER: { code: 'PRO', trial: 'TPRO', name: 'BizPulse Pro Silver', label: 'BizPulse Pro Silver (1 Seat — ₹6,999/yr)' },
+    PRO_GOLD: { code: 'PRO', trial: 'TPRO', name: 'BizPulse Pro Gold', label: 'BizPulse Pro Gold (Up to 7 Seats — ₹20,999/yr)' },
+    PRO_PLATINUM: { code: 'PRO', trial: 'TPRO', name: 'BizPulse Pro Platinum (Lifetime)', label: 'BizPulse Pro Platinum (Lifetime · Up to 7 Seats — ₹41,999)' }
+  };
+  const TRIAL_LABELS = { TBILL: 'BizPulse Billing — 7 Days Free', TLITE: 'BizPulse Lite — 7 Days Free', TSTD: 'BizPulse Standard — 15 Days Free', TPRO: 'BizPulse Pro — 21 Days Free' };
+  /** Older links: ?edition=TRIAL opens the free Pro trial; ?edition=BILL | LITE | STD | PRO open that paid plan. */
+  const EDITION_DEFAULT_PLAN = { BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
+  const PAID_TO_TRIAL = { BILL: 'TBILL', LITE: 'TLITE', STD: 'TSTD', PRO: 'TPRO' };
 
   const $ = (id) => document.getElementById(id);
   const form = $('act-form');
   const errorBox = $('act-error');
   const submitBtn = $('act-submit');
   const busy = $('act-busy');
+  const select = $('f-edition');
+  const currentMode = () => (form.querySelector('input[name="mode"]:checked') || {}).value === 'PAID' ? 'PAID' : 'TRIAL';
 
-  // Pre-select the plan from ?plan=PRO_PLATINUM (pricing cards) or ?edition=BILL | LITE | STD | PRO | TRIAL.
+  /** Rebuilds the dropdown for the chosen mode, keeping a matching choice where one exists. */
+  function fillPlans(mode, wanted) {
+    const list = mode === 'PAID' ? PAID_PLANS : TRIAL_PLANS;
+    const labels = mode === 'PAID' ? Object.fromEntries(Object.entries(PAID_PLANS).map(([k, v]) => [k, v.label])) : TRIAL_LABELS;
+    select.innerHTML = '';
+    Object.keys(list).forEach((k) => { const o = document.createElement('option'); o.value = k; o.textContent = labels[k]; select.appendChild(o); });
+    select.value = list[wanted] ? wanted : (mode === 'PAID' ? 'PRO_SILVER' : 'TPRO');
+    $('f-edition-label').firstChild.textContent = mode === 'PAID' ? 'Select Plan' : 'Select Trial';
+    $('f-edition-hint').textContent = mode === 'PAID'
+      ? 'You get a temporary trial key now; the permanent key and your referral code are emailed when payment is confirmed.'
+      : 'Your trial key is shown here and emailed to you straight away.';
+    submitBtn.textContent = mode === 'PAID' ? 'Place Order & Get Temporary Key' : 'Get My Free Trial Key';
+  }
+  form.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener('change', () => {
+    const was = select.value;
+    // Keep the same edition when switching: Pro Silver ⇄ Pro trial, Billing ⇄ Billing trial, and so on.
+    const carry = currentMode() === 'PAID'
+      ? Object.keys(PAID_PLANS).find((k) => PAID_PLANS[k].trial === was)
+      : (PAID_PLANS[was] || {}).trial;
+    fillPlans(currentMode(), carry);
+  }));
+
+  // Pre-select from the link: ?plan=PRO_PLATINUM (pricing cards, paid), ?mode=TRIAL|PAID, ?edition=TRIAL|TBILL|…|BILL|STD|PRO.
   const query = new URLSearchParams(window.location.search);
   const wantedPlan = (query.get('plan') || '').trim().toUpperCase();
   const wantedEdition = (query.get('edition') || '').trim().toUpperCase();
-  if (PLANS[wantedPlan]) $('f-edition').value = wantedPlan;
-  else if (EDITION_DEFAULT_PLAN[wantedEdition]) $('f-edition').value = EDITION_DEFAULT_PLAN[wantedEdition];
+  const wantedMode = (query.get('mode') || '').trim().toUpperCase();
+  let startMode = 'TRIAL', startPlan = 'TPRO';
+  if (PAID_PLANS[wantedPlan]) { startMode = 'PAID'; startPlan = wantedPlan; }
+  else if (TRIAL_PLANS[wantedPlan]) { startPlan = wantedPlan; }
+  else if (wantedPlan === 'TRIAL' || wantedEdition === 'TRIAL') { startPlan = 'TPRO'; }
+  else if (TRIAL_PLANS[wantedEdition]) { startPlan = wantedEdition; }
+  else if (EDITION_DEFAULT_PLAN[wantedEdition]) {
+    if (wantedMode === 'TRIAL') startPlan = PAID_TO_TRIAL[wantedEdition];
+    else { startMode = 'PAID'; startPlan = EDITION_DEFAULT_PLAN[wantedEdition]; }
+  }
+  if (wantedMode === 'PAID' && startMode === 'TRIAL' && !TRIAL_PLANS[wantedPlan] && !TRIAL_PLANS[wantedEdition]) { startMode = 'PAID'; startPlan = 'PRO_SILVER'; }
+  form.querySelector('input[name="mode"][value="' + startMode + '"]').checked = true;
+  fillPlans(startMode, startPlan);
 
   const showError = (msg) => { errorBox.textContent = msg; errorBox.classList.add('show'); };
   const clearError = () => { errorBox.textContent = ''; errorBox.classList.remove('show'); };
@@ -284,15 +339,19 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
       return;
     }
 
+    const mode = currentMode();
+    const plan = mode === 'PAID' ? (PAID_PLANS[select.value] ? select.value : 'PRO_SILVER') : (TRIAL_PLANS[select.value] ? select.value : 'TPRO');
+    const info = mode === 'PAID' ? PAID_PLANS[plan] : TRIAL_PLANS[plan];
     const payload = {
+      mode: mode,
       fullName: $('f-name').value.trim(),
       businessName: $('f-firm').value.trim(),
       email: $('f-email').value.trim().toLowerCase(),
       mobile: cleanMobile($('f-mobile').value),
       state: $('f-state').value,
-      edition: (PLANS[$('f-edition').value] || PLANS.TRIAL).code,
-      plan: $('f-edition').value,
-      planName: (PLANS[$('f-edition').value] || PLANS.TRIAL).name,
+      edition: info.code,
+      plan: plan,
+      planName: info.name,
       referralCode: $('f-ref').value.trim().toUpperCase(),
       source: 'mybizpulse.in/download.html',
       submittedAt: new Date().toISOString()
@@ -321,13 +380,22 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
 
   function showThanks(p, data) {
     const editionName = data.planName || data.editionName || p.planName || p.edition;
+    const pending = p.mode === 'PAID' && data.status !== 'ACTIVE';
+    const trialKey = data.keyType ? data.keyType === 'TRIAL' : (p.mode === 'TRIAL' || pending);
     const firstName = p.fullName.split(/\s+/)[0];
     // Use the server's download link only if it points to an installer (.exe); otherwise keep the GitHub Release link.
     const downloadUrl = /^https:\/\/\S+\.exe(\?\S*)?$/i.test(String(data.downloadUrl || '')) ? data.downloadUrl : DEFAULT_DOWNLOAD_URL;
     const ref = data.myReferralCode || '';
 
     $('t-title').textContent = 'Thank you, ' + firstName + '!';
-    $('t-msg').textContent = 'Your ' + editionName + ' licence key is ready' + (p.businessName ? ' for ' + p.businessName : '') + '. Keep it safe.';
+    $('t-msg').textContent = pending
+      ? 'Your order for ' + editionName + (p.businessName ? ' (' + p.businessName + ')' : '') + ' is recorded. Here is a temporary key so you can start today.'
+      : 'Your ' + editionName + ' licence key is ready' + (p.businessName ? ' for ' + p.businessName : '') + '. Keep it safe.';
+    $('t-type').textContent = pending ? 'Temporary trial key — permanent key after payment' : (trialKey ? 'Free trial key' : 'Permanent licence key');
+    $('t-keylabel').textContent = pending ? 'Your temporary key:' : 'Your licence key:';
+    $('t-exp').textContent = data.expiresOn ? fmtDate(data.expiresOn) + (data.trialDays ? ' (' + data.trialDays + ' days from activation)' : '') : '';
+    $('t-exp-row').hidden = !trialKey || !data.expiresOn;
+    $('t-pending').hidden = !pending;
     $('t-edition').textContent = editionName;
     $('t-email').textContent = p.email;
     $('t-key').textContent = data.licenseKey;
@@ -338,10 +406,19 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
     $('t-wa').href = data.whatsappShareUrl || ('https://wa.me/?text=' + encodeURIComponent(shareText));
     $('t-wa').hidden = !ref && !data.whatsappShareUrl;
     $('t-copyref').hidden = !ref;
+    // A paid order's referral code is released with the permanent key, after payment is confirmed.
+    $('t-cash').hidden = !ref;
 
     $('act-form-wrap').hidden = true;
     $('act-thanks').hidden = false;
     $('act-left').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function fmtDate(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso));
+    if (!m) return String(iso);
+    const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(m[2]) - 1];
+    return Number(m[3]) + ' ' + mon + ' ' + m[1];
   }
 
   function copy(text, btn) {
