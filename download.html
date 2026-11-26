@@ -54,8 +54,19 @@
   .act-mode b { display: block; color: #ffffff; }
   .act-mode small { color: #a9bdd6; font-size: 0.82rem; }
   .act-pending { background: #2a2410; border: 1px solid #8a7334; color: #f3e3b5; border-radius: 6px; padding: 12px 14px; margin-top: 14px; font-size: 0.92rem; }
-  .act-keep { font-size: 0.82rem; color: #a9bdd6; margin: 8px 0 0; line-height: 1.45; }
-  .act-keep b { color: #d8b25a; }
+  .act-dl-for { margin: 0 0 4px; color: #ffffff; font-weight: 600; }
+  .act-guide { background: #08172f; border: 1px solid #2b4f7e; border-radius: 8px; padding: 0; margin: 14px 0 0; font-size: 0.88rem; color: #d5e1f0; }
+  .act-guide summary { cursor: pointer; padding: 10px 14px; color: #ffffff; font-weight: 600; list-style: none; }
+  .act-guide summary::-webkit-details-marker { display: none; }
+  .act-guide summary::before { content: "▸"; color: #d8b25a; display: inline-block; width: 1.1em; transition: transform 0.15s; }
+  .act-guide[open] summary::before { transform: rotate(90deg); }
+  .act-guide-body { padding: 0 14px 12px; }
+  .act-guide h4 { margin: 10px 0 4px; font-size: 0.9rem; color: #d8b25a; }
+  .act-guide ol { margin: 0; padding-left: 20px; }
+  .act-guide li { margin: 3px 0; line-height: 1.45; }
+  .act-guide b { color: #ffffff; }
+  .act-guide kbd { display: inline-block; background: #13294a; border: 1px solid #2b4f7e; border-radius: 4px; padding: 0 6px; font: inherit; font-size: 0.82rem; color: #ffffff; white-space: nowrap; }
+  .act-guide .act-safe { margin: 10px 0 0; color: #a9bdd6; font-size: 0.82rem; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -172,9 +183,26 @@
           <div class="act-pending" id="t-pending" hidden>Your order is recorded as <b>pending payment</b>. Use the temporary key above until then. As soon as we confirm your payment we will email your permanent licence key and your referral code. Enter the permanent key in BizPulse (Settings → License &amp; Device) — your companies and data stay exactly as they are.</div>
 
           <div class="act-actions">
-            <a class="btn btn-gold" id="t-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download for Windows</a>
+            <a class="btn btn-gold" id="t-download" href="https://github.com/dinlac-rgb/dinlac-rgb.github.io/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download for Windows</a>
           </div>
-          <p class="act-keep">If Microsoft Edge says the file "isn't commonly downloaded", click <b>…</b> (See more) → <b>Keep</b> → <b>Show more</b> → <b>Keep anyway</b>. When you run it, if Windows SmartScreen appears, click <b>More info</b> → <b>Run anyway</b>.</p>
+          <p class="act-file" id="t-file">BizPulse_Setup_v1.0.0.exe</p>
+          <details class="act-guide" id="t-guide" open>
+            <summary>Microsoft Edge or Windows shows a warning? Here's what to click</summary>
+            <div class="act-guide-body">
+              <h4>1 · While downloading (Microsoft Edge)</h4>
+              <ol>
+                <li>If Edge says the file <b>"isn't commonly downloaded"</b>, point at it in the downloads list and click <kbd>…</kbd> (More actions).</li>
+                <li>Click <kbd>Keep</kbd>.</li>
+                <li>Click <kbd>Show more</kbd>, then <kbd>Keep anyway</kbd>. The download finishes.</li>
+              </ol>
+              <h4>2 · When you open the installer (Windows SmartScreen)</h4>
+              <ol>
+                <li>If a blue <b>"Windows protected your PC"</b> box appears, click <kbd>More info</kbd>.</li>
+                <li>Click <kbd>Run anyway</kbd>. The BizPulse setup starts.</li>
+              </ol>
+              <p class="act-safe">Why this happens: Windows double-checks every new program until many people have downloaded it. The installer comes straight from our official GitHub release, so it is safe to keep and run.</p>
+            </div>
+          </details>
 
           <div class="act-cash" id="t-cash">
             <p style="margin:0 0 6px">Your referral code: <span class="act-ref" id="t-ref"></span></p>
@@ -192,17 +220,34 @@
       <aside class="act-panel">
         <div class="act-side">
           <h3>Direct download</h3>
-          <p class="act-sub">Version 1.0.0 · Windows 10 / 11, 64-bit</p>
-          <p class="act-file">BizPulse_Setup_v1.0.0.exe</p>
-          <a class="btn btn-primary" id="side-download" href="https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download BizPulse_Setup_v1.0.0.exe</a>
-          <p class="act-keep">If Microsoft Edge says the file "isn't commonly downloaded", click <b>…</b> (See more) → <b>Keep</b> → <b>Show more</b> → <b>Keep anyway</b>. When you run it, if Windows SmartScreen appears, click <b>More info</b> → <b>Run anyway</b>.</p>
+          <p class="act-dl-for" id="side-edition" aria-live="polite">BizPulse Pro</p>
+          <p class="act-sub">Version 1.0.0 · Windows 10 / 11, 64-bit · follows the edition you choose</p>
+          <p class="act-file" id="side-file">BizPulse_Setup_v1.0.0.exe</p>
+          <a class="btn btn-primary" id="side-download" href="https://github.com/dinlac-rgb/dinlac-rgb.github.io/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe">Download BizPulse_Setup_v1.0.0.exe</a>
+          <details class="act-guide" id="side-guide">
+            <summary>Microsoft Edge or Windows shows a warning? Here's what to click</summary>
+            <div class="act-guide-body">
+              <h4>1 · While downloading (Microsoft Edge)</h4>
+              <ol>
+                <li>If Edge says the file <b>"isn't commonly downloaded"</b>, point at it in the downloads list and click <kbd>…</kbd> (More actions).</li>
+                <li>Click <kbd>Keep</kbd>.</li>
+                <li>Click <kbd>Show more</kbd>, then <kbd>Keep anyway</kbd>. The download finishes.</li>
+              </ol>
+              <h4>2 · When you open the installer (Windows SmartScreen)</h4>
+              <ol>
+                <li>If a blue <b>"Windows protected your PC"</b> box appears, click <kbd>More info</kbd>.</li>
+                <li>Click <kbd>Run anyway</kbd>. The BizPulse setup starts.</li>
+              </ol>
+              <p class="act-safe">Why this happens: Windows double-checks every new program until many people have downloaded it. The installer comes straight from our official GitHub release, so it is safe to keep and run.</p>
+            </div>
+          </details>
         </div>
 
         <div class="act-side">
           <h3>Quick installation guide</h3>
           <ol class="act-list">
             <li>Register on this page — choose <b>Free Trial</b> or <b>Paid Subscription</b>. Your key is shown here and emailed to you.</li>
-            <li>Download <b>BizPulse_Setup_v1.0.0.exe</b>. In Edge choose <b>Keep</b>; when it runs, choose <b>More info → Run anyway</b> if SmartScreen appears.</li>
+            <li>Download <b id="guide-file">BizPulse_Setup_v1.0.0.exe</b> (the installer of your edition). If Edge or Windows warns you, follow <b>"Here's what to click"</b> above: <b>Keep → Show more → Keep anyway</b>, then <b>More info → Run anyway</b>.</li>
             <li>Open BizPulse. On first launch, enter your <b>Registered Email</b> and <b>Licence Key</b>, then press <b>Activate</b>.</li>
             <li>Bought a plan after your trial? Enter the new key in <b>Settings → License &amp; Device</b>. Your companies and vouchers are kept.</li>
             <li>Create your company and start entering vouchers.</li>
@@ -232,7 +277,16 @@
 <script src="assets/site.js"></script>
 <script>
 const LICENSE_API_URL = 'https://script.google.com/macros/s/AKfycbw8mANY_NTID4OHM_UzwuBcWxweNWGLNNITnCMRmqxevHXhDu7ZQVg95omKXxmvb8Nt3g/exec';
-const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/releases/download/v1.0.0/BizPulse_Setup_v1.0.0.exe';
+/** The GitHub Release with the five Windows installers, and the installer of each edition. */
+const RELEASE_BASE = 'https://github.com/dinlac-rgb/dinlac-rgb.github.io/releases/download/v1.0.0/';
+const INSTALLERS = {
+  VX: 'BizPulse_Voice_Express_Setup_v1.0.0.exe',
+  BILL: 'BizPulse_Billing_Setup_v1.0.0.exe',
+  LITE: 'BizPulse_Lite_Setup_v1.0.0.exe',
+  STD: 'BizPulse_Standard_Setup_v1.0.0.exe',
+  PRO: 'BizPulse_Setup_v1.0.0.exe'
+};
+const DEFAULT_DOWNLOAD_URL = RELEASE_BASE + INSTALLERS.PRO;
 
 (function () {
   'use strict';
@@ -262,6 +316,12 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
   const EDITION_DEFAULT_PLAN = { VX: 'VX', BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
   const PAID_TO_TRIAL = { VX: 'TVX', BILL: 'TBILL', LITE: 'TLITE', STD: 'TSTD', PRO: 'TPRO' };
 
+  /** Trial and paid codes of one edition share its installer (TRIAL and CA keys use Pro's). */
+  const FAMILY = { TVX: 'VX', VX: 'VX', TBILL: 'BILL', BILL: 'BILL', TLITE: 'LITE', LITE: 'LITE', TSTD: 'STD', STD: 'STD', TPRO: 'PRO', PRO: 'PRO', TRIAL: 'PRO', CA: 'PRO' };
+  const FAMILY_NAME = { VX: 'BizPulse Voice Express', BILL: 'BizPulse Billing', LITE: 'BizPulse Lite', STD: 'BizPulse Standard', PRO: 'BizPulse Pro' };
+  const familyOf = (code) => FAMILY[String(code || '').toUpperCase()] || 'PRO';
+  const installerUrl = (code) => RELEASE_BASE + INSTALLERS[familyOf(code)];
+
   const $ = (id) => document.getElementById(id);
   const form = $('act-form');
   const errorBox = $('act-error');
@@ -282,7 +342,24 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
       ? 'You get a temporary trial key now; the permanent key and your referral code are emailed when payment is confirmed.'
       : 'Your trial key is shown here and emailed to you straight away.';
     submitBtn.textContent = mode === 'PAID' ? 'Place Order & Get Temporary Key' : 'Get My Free Trial Key';
+    showInstaller();
   }
+
+  /** The Direct download card (and step 2 of the guide) follow the edition chosen in the form. */
+  function selectedCode() {
+    const plans = currentMode() === 'PAID' ? PAID_PLANS : TRIAL_PLANS;
+    return (plans[select.value] || {}).code || 'TPRO';
+  }
+  function showInstaller() {
+    const code = selectedCode();
+    const file = INSTALLERS[familyOf(code)];
+    $('side-edition').textContent = FAMILY_NAME[familyOf(code)];
+    $('side-file').textContent = file;
+    $('side-download').href = RELEASE_BASE + file;
+    $('side-download').textContent = 'Download ' + file;
+    $('guide-file').textContent = file;
+  }
+  select.addEventListener('change', showInstaller);
   form.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener('change', () => {
     const was = select.value;
     // Keep the same edition when switching: Pro Silver ⇄ Pro trial, Billing ⇄ Billing trial, and so on.
@@ -385,8 +462,12 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
     const pending = p.mode === 'PAID' && data.status !== 'ACTIVE';
     const trialKey = data.keyType ? data.keyType === 'TRIAL' : (p.mode === 'TRIAL' || pending);
     const firstName = p.fullName.split(/\s+/)[0];
-    // Use the server's download link only if it points to an installer (.exe); otherwise keep the GitHub Release link.
-    const downloadUrl = /^https:\/\/\S+\.exe(\?\S*)?$/i.test(String(data.downloadUrl || '')) ? data.downloadUrl : DEFAULT_DOWNLOAD_URL;
+    // The installer of the registered edition: the server's link when it is one of our release installers, otherwise the
+    // page's own match for the plan (a paid order's temporary key is of the same edition, so the same installer).
+    const serverUrl = String(data.downloadUrl || '');
+    const ours = serverUrl.indexOf(RELEASE_BASE) === 0 && Object.keys(INSTALLERS).some((k) => serverUrl === RELEASE_BASE + INSTALLERS[k]);
+    const downloadUrl = ours ? serverUrl : installerUrl(p.edition);
+    const file = downloadUrl.slice(RELEASE_BASE.length);
     const ref = data.myReferralCode || '';
 
     $('t-title').textContent = 'Thank you, ' + firstName + '!';
@@ -402,6 +483,10 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
     $('t-email').textContent = p.email;
     $('t-key').textContent = data.licenseKey;
     $('t-download').href = downloadUrl;
+    $('t-download').textContent = 'Download for Windows (' + FAMILY_NAME[familyOf(p.edition)] + ')';
+    $('t-file').textContent = file;
+    // Keep the Direct download card on the same installer.
+    $('side-download').href = downloadUrl; $('side-download').textContent = 'Download ' + file; $('side-file').textContent = file; $('guide-file').textContent = file;
     $('t-ref').textContent = ref || '—';
 
     const shareText = 'I use BizPulse for GST billing and accounting. Register with my referral code ' + ref + ' at https://mybizpulse.in/download.html';
