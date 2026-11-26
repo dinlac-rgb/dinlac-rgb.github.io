@@ -239,6 +239,7 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
 
   // Free trial choices: the desktop trial code each key is made for (BP-<CODE>-…) and its length in days.
   const TRIAL_PLANS = {
+    TVX: { code: 'TVX', days: 7, name: 'BizPulse Voice Express — 7-Day Free Trial' },
     TBILL: { code: 'TBILL', days: 7, name: 'BizPulse Billing — 7-Day Free Trial' },
     TLITE: { code: 'TLITE', days: 7, name: 'BizPulse Lite — 7-Day Free Trial' },
     TSTD: { code: 'TSTD', days: 15, name: 'BizPulse Standard — 15-Day Free Trial' },
@@ -246,6 +247,7 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
   };
   // Paid plans: the desktop edition code of the permanent key, and the trial code of the temporary key issued while payment is pending.
   const PAID_PLANS = {
+    VX: { code: 'VX', trial: 'TVX', name: 'BizPulse Pocket (Voice Express)', label: 'BizPulse Pocket · Voice Express (Mobile — ₹199 first year)' },
     BILL: { code: 'BILL', trial: 'TBILL', name: 'BizPulse Billing', label: 'BizPulse Billing (Desktop — ₹499/yr)' },
     LITE: { code: 'LITE', trial: 'TLITE', name: 'BizPulse Lite', label: 'BizPulse Lite (Desktop — ₹1,499/yr)' },
     STD_SILVER: { code: 'STD', trial: 'TSTD', name: 'BizPulse Standard Silver', label: 'BizPulse Standard Silver (1 Seat — ₹2,999/yr)' },
@@ -255,10 +257,10 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
     PRO_GOLD: { code: 'PRO', trial: 'TPRO', name: 'BizPulse Pro Gold', label: 'BizPulse Pro Gold (Up to 7 Seats — ₹20,999/yr)' },
     PRO_PLATINUM: { code: 'PRO', trial: 'TPRO', name: 'BizPulse Pro Platinum (Lifetime)', label: 'BizPulse Pro Platinum (Lifetime · Up to 7 Seats — ₹41,999)' }
   };
-  const TRIAL_LABELS = { TBILL: 'BizPulse Billing — 7 Days Free', TLITE: 'BizPulse Lite — 7 Days Free', TSTD: 'BizPulse Standard — 15 Days Free', TPRO: 'BizPulse Pro — 21 Days Free' };
-  /** Older links: ?edition=TRIAL opens the free Pro trial; ?edition=BILL | LITE | STD | PRO open that paid plan. */
-  const EDITION_DEFAULT_PLAN = { BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
-  const PAID_TO_TRIAL = { BILL: 'TBILL', LITE: 'TLITE', STD: 'TSTD', PRO: 'TPRO' };
+  const TRIAL_LABELS = { TVX: 'BizPulse Voice Express — 7 Days Free', TBILL: 'BizPulse Billing — 7 Days Free', TLITE: 'BizPulse Lite — 7 Days Free', TSTD: 'BizPulse Standard — 15 Days Free', TPRO: 'BizPulse Pro — 21 Days Free' };
+  /** Older links: ?edition=TRIAL opens the free Pro trial; ?edition=VX | BILL | LITE | STD | PRO open that paid plan. */
+  const EDITION_DEFAULT_PLAN = { VX: 'VX', BILL: 'BILL', LITE: 'LITE', STD: 'STD_SILVER', PRO: 'PRO_SILVER' };
+  const PAID_TO_TRIAL = { VX: 'TVX', BILL: 'TBILL', LITE: 'TLITE', STD: 'TSTD', PRO: 'TPRO' };
 
   const $ = (id) => document.getElementById(id);
   const form = $('act-form');
@@ -290,7 +292,7 @@ const DEFAULT_DOWNLOAD_URL = 'https://github.com/dinlac-rgb/my-first-web-app/rel
     fillPlans(currentMode(), carry);
   }));
 
-  // Pre-select from the link: ?plan=PRO_PLATINUM (pricing cards, paid), ?mode=TRIAL|PAID, ?edition=TRIAL|TBILL|…|BILL|STD|PRO.
+  // Pre-select from the link: ?plan=PRO_PLATINUM (pricing cards, paid), ?mode=TRIAL|PAID, ?edition=TRIAL|TVX|TBILL|…|VX|BILL|STD|PRO.
   const query = new URLSearchParams(window.location.search);
   const wantedPlan = (query.get('plan') || '').trim().toUpperCase();
   const wantedEdition = (query.get('edition') || '').trim().toUpperCase();
